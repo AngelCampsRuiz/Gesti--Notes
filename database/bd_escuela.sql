@@ -50,3 +50,10 @@ INSERT INTO tbl_roles (nombre_rol) VALUES ('profesor');
 
 -- Insert a tabla usuarios
 INSERT INTO tbl_usuarios (username_usu, password_usu, id_rol) VALUES ('angel','$2y$10$9YAaDvpj8IDI7WRNVxVq6uYzMnCaUWDGMlU6LS.jv6dgpWcmqcswS',1);
+
+-- Insertar en la tabla alumnos
+INSERT INTO tbl_alumnos (nombre_alu, apellido_alu, fecha_nacimiento, email_alu, telefono_alu, direccion_alu) 
+VALUES 
+('Juan', 'Pérez', '2005-04-23', 'juan.perez@example.com', '555-1234', 'Calle Falsa 123'),
+('María', 'González', '2006-08-15', 'maria.gonzalez@example.com', '555-5678', 'Avenida Siempre Viva 742'),
+('Carlos', 'López', '2004-12-30', 'carlos.lopez@example.com', '555-8765', 'Boulevard de los Sueños 456');
