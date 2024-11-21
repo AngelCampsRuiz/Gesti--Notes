@@ -1,15 +1,8 @@
 <?php
-function checkMysqliError($conn) {
-    if (mysqli_connect_errno()) {
-        throw new Exception("Error de conexión: " . mysqli_connect_error());
-    }
-}
+include '../database/conexion.php'; // Incluir el archivo de conexión
 
 try {
     // Conexión a la base de datos
-    $conn = mysqli_connect('localhost', 'usuario', 'contraseña', 'bd_escuela');
-    checkMysqliError($conn);
-
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Procesar la actualización del alumno
         $id = $_POST['id'];
@@ -19,9 +12,9 @@ try {
         // Otros campos...
 
         $sql = "UPDATE tbl_alumnos SET nombre_alu=?, apellido_alu=?, email_alu=? WHERE id_alu=?";
-        $stmt = mysqli_prepare($conn, $sql);
+        $stmt = mysqli_prepare($conexion, $sql); // Usar la conexión desde el archivo incluido
         if (!$stmt) {
-            throw new Exception("Error al preparar la consulta: " . mysqli_error($conn));
+            throw new Exception("Error al preparar la consulta: " . mysqli_error($conexion));
         }
 
         mysqli_stmt_bind_param($stmt, "sssi", $nombre, $apellido, $email, $id);
@@ -29,15 +22,19 @@ try {
             throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
         }
 
-        echo "Alumno actualizado exitosamente.";
         mysqli_stmt_close($stmt);
+        mysqli_close($conexion); // Cerrar la conexión desde el archivo incluido
+
+        // Redirigir a la página de gestión de usuarios
+        header("Location: gestionUsers.php");
+        exit; // Asegurarse de que el script se detenga después de la redirección
 
     } else {
         // Obtener los datos actuales del alumno
         $id = $_GET['id'];
-        $stmt = mysqli_prepare($conn, "SELECT * FROM tbl_alumnos WHERE id_alu=?");
+        $stmt = mysqli_prepare($conexion, "SELECT * FROM tbl_alumnos WHERE id_alu=?"); // Usar la conexión desde el archivo incluido
         if (!$stmt) {
-            throw new Exception("Error al preparar la consulta: " . mysqli_error($conn));
+            throw new Exception("Error al preparar la consulta: " . mysqli_error($conexion));
         }
 
         mysqli_stmt_bind_param($stmt, "i", $id);
@@ -54,7 +51,7 @@ try {
         mysqli_stmt_close($stmt);
     }
 
-    mysqli_close($conn);
+    mysqli_close($conexion); // Cerrar la conexión desde el archivo incluido
 
 } catch (Exception $e) {
     echo "Se produjo un error: " . $e->getMessage();
@@ -63,9 +60,9 @@ try {
 
 <!-- Formulario de edición -->
 <form method="post">
-    <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alu']); ?>">
-    Nombre: <input type="text" name="nombre" value="<?php echo htmlspecialchars($alumno['nombre_alu']); ?>"><br>
-    Apellido: <input type="text" name="apellido" value="<?php echo htmlspecialchars($alumno['apellido_alu']); ?>"><br>
-    Email: <input type="email" name="email" value="<?php echo htmlspecialchars($alumno['email_alu']); ?>"><br>
+    <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alu'] ?? ''); ?>">
+    Nombre: <input type="text" name="nombre" value="<?php echo htmlspecialchars($alumno['nombre_alu'] ?? ''); ?>"><br>
+    Apellido: <input type="text" name="apellido" value="<?php echo htmlspecialchars($alumno['apellido_alu'] ?? ''); ?>"><br>
+    Email: <input type="email" name="email" value="<?php echo htmlspecialchars($alumno['email_alu'] ?? ''); ?>"><br>
     <input type="submit" value="Actualizar Alumno">
 </form> 
