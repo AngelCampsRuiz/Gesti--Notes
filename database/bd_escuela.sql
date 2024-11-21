@@ -30,10 +30,16 @@ CREATE TABLE tbl_alumnos (
 CREATE TABLE tbl_notas (
     id_nota INT AUTO_INCREMENT PRIMARY KEY not null,
     id_alu INT NOT NULL,
-    asignatura_nota VARCHAR(100) NOT NULL,
+    id_asig int NOT NULL,
     nota_alu FLOAT NOT NULL,
     fecha_registro DATE NOT NULL
 );
+
+-- creacion de la tabla modulos
+CREATE TABLE tbl_asginatura (
+    id_asig INT AUTO_INCREMENT PRIMARY KEY not null,
+    nombre_asig VARCHAR(100) NOT NULL
+)
 
 -- relacion de la tabla roles a usuarios
 ALTER TABLE tbl_usuarios
@@ -44,6 +50,10 @@ ALTER TABLE tbl_usuarios
 ALTER TABLE tbl_notas
     ADD CONSTRAINT fk_alumno_nota FOREIGN KEY (id_alu)
     REFERENCES tbl_alumnos (id_alu);
+
+ALTER TABLE tbl_notas
+    ADD CONSTRAINT fk_asignatura_nota FOREIGN KEY (id_asig)
+    REFERENCES tbl_asignatura (id_asig);
 
 -- Insert a tabla roles
 INSERT INTO tbl_roles (nombre_rol) VALUES ('profesor');
