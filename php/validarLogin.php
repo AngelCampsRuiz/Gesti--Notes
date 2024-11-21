@@ -16,7 +16,7 @@ if (empty($_POST['user']) || empty($_POST['pwd'])) {
     exit();
 } elseif (!preg_match('/^[a-zA-Z0-9]+$/', $_POST['user'])) {
     mysqli_close($conn);
-    header("Location: cerrarSesion.php");
+    header("Location: ../index.php?loginError");
     exit();
 }
 
