@@ -39,7 +39,7 @@ CREATE TABLE tbl_notas (
 CREATE TABLE tbl_asginatura (
     id_asig INT AUTO_INCREMENT PRIMARY KEY not null,
     nombre_asig VARCHAR(100) NOT NULL
-)
+);
 
 -- relacion de la tabla roles a usuarios
 ALTER TABLE tbl_usuarios
