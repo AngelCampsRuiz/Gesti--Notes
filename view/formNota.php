@@ -10,24 +10,33 @@
     <title>Document</title>
 </head>
 <body>
-    <form>
+    <form method="POST" action="../process/insertNota.php">
         <label>Asignatura:</label>
-        <select>
+        <select name="asignatura" id="asignatura">
+            <option value="" selected-disabled>Seleccione una asignatura</option>
             <?php
                 require_once '../process/conexion.php';
-                $sql = "SELECT a.id_asig, a.nombre_asig FROM tbl_asignatura a INNER JOIN tbl_notas n ON n.id_asig = a.id_asig INNER JOIN tbl_alumnos a ON a.id_alu = a.id_alu WHERE n.id_alu !=  ?";
-                $stmt = mysqli_stmt_init($conn);
-                mysqli_stmt_prepare($stmt, $sql);
-                mysqli_stmt_bind_param($stmt, "i", $id_alu);
-                $resultados = mysqli_stmt_get_result($stmt);
-                while($row = mysqli_fetch_assoc($resultados)){
-                    echo "<option value='".$row['id_asig']."'>".$row['nombre_asig']."</option>";
-                }
+                $sql = "SELECT asig.id_asig, asig.nombre_asig FROM tbl_asignatura asig LEFT JOIN tbl_notas n ON n.id_asig = asig.id_asig AND n.id_alu = ? WHERE n.id_alu IS NULL";
+                    $stmt = mysqli_stmt_init($conn);
+                    if (mysqli_stmt_prepare($stmt, $sql)) {
+                        mysqli_stmt_bind_param($stmt, "i", $id_alu);
+                        mysqli_stmt_execute($stmt);
+                        $resultados = mysqli_stmt_get_result($stmt);
+                        while ($row = mysqli_fetch_assoc($resultados)) {
+                            echo "<option value='" . $row['id_asig'] . "'>" . $row['nombre_asig'] . "</option>";
+                        }
+                    } else {
+                        echo "Error en la consulta: " . mysqli_error($conn);
+                    }
                 mysqli_stmt_close($stmt);
                 mysqli_close($conn);
             ?>
         </select>
-        <label for="nota">Nota:<input type="text" name="nota" id="nota"></label>
+        <p id="errorAsig"></p>
+        <label for="nota">Nota:<input type="number" name="nota" id="nota" step="0.1"></label>
+        <p id="errorNota"></p>
+        <input type="submit" id="boton" value="Enviar" disabled>
     </form>
+    <script src="../js/verifNota.js"></script>
 </body>
 </html>

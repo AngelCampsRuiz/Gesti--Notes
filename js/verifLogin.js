@@ -40,5 +40,5 @@ function verificarForm() {
     ]
     const hayErrores = errores.some(error => error != "")
     const camposVacios = campos.some(campos => campos == "")
-    document.getElementById("boton").disabled = hayErrores || campos.some(campo => campo == "")
+    document.getElementById("boton").disabled = hayErrores || camposVacios
 }
