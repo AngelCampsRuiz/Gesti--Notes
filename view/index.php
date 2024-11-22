@@ -15,7 +15,7 @@
         <img src="../Imagenes/LogoEscuela.jpeg" id="logo">
         <h2 id="iniciar-sesion">Iniciar sesión</h2>
     </header>
-    <form action="login.php" method="POST" id="login" onsubmit="return comprobarForm()">
+    <form action="./php/validarLogin.php" method="POST" id="login" onsubmit="return comprobarForm()">
     <form action="../Validaciones/PHP/validacionPhp.php" method="POST" id="login" onsubmit="return comprobarForm()">
         <label for="user">Usuario:</label><br><br>
         <input type="text" id="user" name="user" value="<?php if (isset($_SESSION['usuario'])) echo $_SESSION['usuario']; ?>" onblur="validarUser()" onkeyup="validarUser()"><br>
