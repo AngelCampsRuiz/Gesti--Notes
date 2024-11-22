@@ -4,6 +4,7 @@
         exit();
     }
     try {
+        mysqli_autocommit($conn, false);
         // Conexión a la base de datos
         require_once '../process/conexion.php';
 
@@ -34,6 +35,7 @@
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close(statement: $stmt);
         }
+        mysqli_commit($conn);
         mysqli_close($conn);
         header("Location: gestionUsers.php");
         exit();

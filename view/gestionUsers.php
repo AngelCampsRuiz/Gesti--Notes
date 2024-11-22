@@ -46,6 +46,9 @@ try {
         Apellido: <input type="text" name="apellido" value="<?php echo htmlspecialchars($apellidoFiltro); ?>">
         <input type="submit" value="Filtrar">
     </form>
+
+    <!-- Botón para crear un nuevo alumno -->
+    <a href="crearAlumno.php"><button>Crear Nuevo Alumno</button></a>
     <?php
     // Mostrar los alumnos
     if (mysqli_num_rows($result) > 0) {
