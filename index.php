@@ -16,7 +16,6 @@
         <h2 id="iniciar-sesion">Iniciar sesión</h2>
     </header>
     <form action="php/validarLogin.php" method="POST" id="login">
-    <form action="../Validaciones/PHP/validacionPhp.php" method="POST" id="login">
         <label for="user">Usuario:</label><br><br>
         <input type="text" id="user" name="user" value="<?php if (isset($_SESSION['usuario'])) echo $_SESSION['usuario']; ?>" onblur="validarUser()" onkeyup="validarUser()"><br>
         <span id="errorUser" class="error"></span><br>
