@@ -48,7 +48,8 @@ try {
     </form>
 
     <!-- Botón para crear un nuevo alumno -->
-    <a href="crearAlumno.php"><button>Crear Nuevo Alumno</button></a>
+    <!-- Botón para crear un nuevo alumno -->
+<a href="crearAlumno.php"><button class="create-button">Crear Nuevo Alumno</button></a>
     <?php
     // Mostrar los alumnos
     if (mysqli_num_rows($result) > 0) {
@@ -82,3 +83,15 @@ try {
     echo "Se produjo un error: " . $e->getMessage();
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Usuarios</title>
+    <link rel="stylesheet" type="text/css" href="./../css/styles.css">
+</head>
+<body>
+    
+</body>
+</html>
