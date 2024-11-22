@@ -55,7 +55,8 @@ try {
         echo "<table><tr><th>Nombre</th><th>Apellido</th><th>Email</th><th>Acciones</th></tr>";
         while($row = mysqli_fetch_assoc($result)) {
             echo "<tr><td>{$row['nombre_alu']}</td><td>{$row['apellido_alu']}</td><td>{$row['email_alu']}</td>";
-            echo "<td><a href='editarAlumno.php?id={$row['id_alu']}'>Editar</a> | <a href='eliminarAlumno.php?id={$row['id_alu']}'>Eliminar</a></td></tr>";
+            echo "<td><a href='editarAlumno.php?id={$row['id_alu']}'>Editar</a> | ";
+            echo "<a href='#' class='delete-link' data-id='{$row['id_alu']}' data-toggle='modal' data-target='#confirmDeleteModal'>Eliminar</a></td></tr>";
         }
         echo "</table>";
     } else {
@@ -82,3 +83,41 @@ try {
     echo "Se produjo un error: " . $e->getMessage();
 }
 ?>
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar este alumno?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a href="#" id="confirmDeleteButton" class="btn btn-danger">Eliminar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('.delete-link').on('click', function() {
+        var id = $(this).data('id');
+        $('#confirmDeleteButton').attr('href', 'eliminarAlumno.php?id=' + id);
+    });
+});
+</script>
