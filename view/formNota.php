@@ -23,6 +23,8 @@
                 while($row = mysqli_fetch_assoc($resultados)){
                     echo "<option value='".$row['id_asig']."'>".$row['nombre_asig']."</option>";
                 }
+                mysqli_stmt_close($stmt);
+                mysqli_close($conn);
             ?>
         </select>
         <label for="nota">Nota:<input type="text" name="nota" id="nota"></label>
