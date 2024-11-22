@@ -3,7 +3,7 @@ session_start();
 
 include_once '../database/conexion.php';
 
-if (!isset($_POST['botton'])) {
+if (!isset($_POST['boton'])) {
     header('Location: ../view/cerrarSesion.php');
     exit();
 }

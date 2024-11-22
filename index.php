@@ -26,7 +26,7 @@
         <?php if (isset($_GET['loginError'])) {
             echo "<p style='text-align: center;'>Usuario o contraseña incorrecto.</p><br>";
         } ?>
-        <input type="submit" name="botton" value="Iniciar Sesión">
+        <input type="submit" name="boton" value="Iniciar Sesión">
     </form>
 
     <script type="text/javascript" src="js/verifLogin.js"></script>

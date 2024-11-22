@@ -1,4 +1,4 @@
-document.getElementById("username").onblur = function validaUser() {
+document.getElementById("user").onblur = function validaUser() {
     let username = this.value.trim()
     let errorUser = ""
     if(username.length == 0 || username == null || /^\s+$/.test(username)) {
@@ -35,7 +35,7 @@ function verificarForm() {
         document.getElementById("errorPwd").innerHTML
     ]
     const campos = [
-        document.getElementById("username").value.trim(),
+        document.getElementById("user").value.trim(),
         document.getElementById("pwd").value.trim()
     ]
     const hayErrores = errores.some(error => error != "")
