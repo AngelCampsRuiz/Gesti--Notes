@@ -60,6 +60,12 @@ form input[type="submit"]:hover {
     background: #218838; /* Color verde más oscuro al pasar el mouse */
 }
 
+form input[type="submit"]:disabled {
+    background-color: #cccccc; /* Gris */
+    color: #666666; /* Texto gris oscuro */
+    cursor: not-allowed; /* Cursor de no permitido */
+}
+
 /* Mensajes de error */
 .error {
     color: red;

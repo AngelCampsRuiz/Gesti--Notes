@@ -1,4 +1,4 @@
-document.getElementById("user").onblur = function validaUser() {
+document.getElementById("user").oninput = function validaUser() {
     let username = this.value.trim()
     let errorUser = ""
     if(username.length == 0 || username == null || /^\s+$/.test(username)) {
@@ -12,10 +12,10 @@ document.getElementById("user").onblur = function validaUser() {
         let patron = /^[a-zA-Z]+$/
         return patron.test(username)
     }
-    document.getElementById("errorUser").textContent = errorUser
+    document.getElementById("errorUser").innerHTML = errorUser
     verificarForm()
 }
-document.getElementById("pwd").onblur = function validaPwd() {
+document.getElementById("pwd").oninput = function validaPwd() {
     let pwd = this.value.trim()
     let errorPwd = ""
     if(pwd.length == 0 || pwd == null || /^\s+$/.test(pwd)) {
@@ -27,6 +27,7 @@ document.getElementById("pwd").onblur = function validaPwd() {
         let patron = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}/
         return patron.test(pwd)
     }
+    document.getElementById("errorPwd").innerHTML = errorPwd
     verificarForm()
 }
 function verificarForm() {
@@ -39,6 +40,6 @@ function verificarForm() {
         document.getElementById("pwd").value.trim()
     ]
     const hayErrores = errores.some(error => error != "")
-    const camposVacios = campos.some(campos => campos == "")
-    document.getElementById("boton").disabled = hayErrores || campos.some(campo => campo == "")
-}
+    const camposVacios = campos.some(campo => campo == "")
+    document.getElementById("boton").disabled = hayErrores || camposVacios
+}   
