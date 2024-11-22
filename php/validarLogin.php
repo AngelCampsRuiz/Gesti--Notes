@@ -1,28 +1,29 @@
 <?php
 session_start();
 
-include_once 'conexion.php';
+include_once '../database/conexion.php';
 
-if (!isset($_POST['inicio'])) {
-    header('Location: cerrarSesion.php');
+if (!isset($_POST['botton'])) {
+    header('Location: ../view/cerrarSesion.php');
     exit();
 }
 
 if (empty($_POST['user']) || empty($_POST['pwd'])) {
-    mysqli_close($conn);
-    header("Location: cerrarSesion.php");
+    mysqli_close($conexion);
+    header("Location: ../view/cerrarSesion.php");
     exit();
 } elseif (!preg_match('/^[a-zA-Z0-9]+$/', $_POST['user'])) {
-    mysqli_close($conn);
+    mysqli_close($conexion);
     header("Location: ../index.php?loginError");
     exit();
 }
 
-$user = mysqli_real_escape_string($conn, htmlspecialchars($_POST['user']));
-$pwd = mysqli_real_escape_string($conn, htmlspecialchars($_POST['pwd']));
+$user = mysqli_real_escape_string($conexion, htmlspecialchars($_POST['user']));
+$pwd = mysqli_real_escape_string($conexion, htmlspecialchars($_POST['pwd']));
+$_SESSION['user'] = $user;
 
 $query = "SELECT id_usu, password_usu FROM tbl_usuarios WHERE username_usu = ?";
-$stmt = mysqli_stmt_init($conn);
+$stmt = mysqli_stmt_init($conexion);
 
 if (mysqli_stmt_prepare($stmt, $query)) {
     mysqli_stmt_bind_param($stmt, 's', $user);
@@ -35,18 +36,19 @@ if (mysqli_stmt_prepare($stmt, $query)) {
             $_SESSION['id_usu'] = $row['id_usu'];
 
             mysqli_stmt_close($stmt);
-            mysqli_close($conn);
+            mysqli_close($conexion);
+            header("Location: ../view/gestionUsers.php");
             exit();
         }
     }
     
     mysqli_stmt_close($stmt);
-    mysqli_close($conn);
+    mysqli_close($conexion);
     header("Location: ../index.php?loginError");
     exit();
 }
 
-mysqli_close($conn);
-header("Location: ../view/index.php");
+mysqli_close($conexion);
+header("Location: ../index.php");
 exit();
 ?>
