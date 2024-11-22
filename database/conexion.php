@@ -13,7 +13,6 @@ try {
         throw new Exception("Error de conexión: " . mysqli_connect_error());
     }
 
-    echo "Conexión exitosa a la base de datos.";
 } catch (Exception $e) {
     echo $e->getMessage();
     exit;

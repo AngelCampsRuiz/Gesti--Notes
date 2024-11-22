@@ -8,11 +8,16 @@ if (!isset($_POST['boton'])) {
     exit();
 }
 
+$user = isset($_POST['user']) ? trim($_POST['user']) : '';
+$pwd = isset($_POST['pwd']) ? trim($_POST['pwd']) : '';
+
 if (empty($_POST['user']) || empty($_POST['pwd'])) {
     mysqli_close($conexion);
     header("Location: ../view/cerrarSesion.php");
     exit();
-} elseif (!preg_match('/^[a-zA-Z0-9]+$/', $_POST['user'])) {
+}
+
+if (!preg_match('/^[a-zA-Z0-9]+$/', $user)) {
     mysqli_close($conexion);
     header("Location: ../index.php?loginError");
     exit();
