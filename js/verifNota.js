@@ -1,4 +1,4 @@
-document.getElementById("asignatura").onblur = function validaAsignatura() {
+document.getElementById("asignatura").onmouseleave = function validaAsignatura() {
     let asignatura = this.value.trim()
     let errorAsig = ""
     if(asignatura.length == 0 || asignatura == null || /^\s+$/.test(asignatura)) {
@@ -7,7 +7,7 @@ document.getElementById("asignatura").onblur = function validaAsignatura() {
     document.getElementById("errorAsig").innerHTML = errorAsig
     validarForm()
 }
-document.getElementById("nota").onblur = function validaNota() {
+document.getElementById("nota").onmouseleave = function validaNota() {
     let nota = this.value.trim()
     let errorNota = ""
     if(nota.length == 0 || nota == null || /^\s+$/.test(nota)) {

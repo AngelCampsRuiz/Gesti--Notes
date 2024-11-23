@@ -1,27 +1,39 @@
 <?php
+session_start();
+if(!isset($_SESSION['id_usu'])){
+    header("Location: ../index.php");
+    exit();
+}
 include '../database/conexion.php'; // Incluir el archivo de conexión
 
 try {
     // Conexión a la base de datos
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Procesar la actualización del alumno
-        $id = $_POST['id'];
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
-        $email = $_POST['email'];
+        $id = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['id'])));
+        $nombre = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['nombre'])));
+        $apellido = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['apellido'])));
+        $email = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['email'])));
+        $telefono = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['telefono'])));
+        $fecha = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['fecha'])));
+        $direccion = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['direccion'])));
         // Otros campos...
 
-        $sql = "UPDATE tbl_alumnos SET nombre_alu=?, apellido_alu=?, email_alu=? WHERE id_alu=?";
-        $stmt = mysqli_prepare($conexion, $sql); // Usar la conexión desde el archivo incluido
-        if (!$stmt) {
-            throw new Exception("Error al preparar la consulta: " . mysqli_error($conexion));
-        }
+        try{
+            $sql = "UPDATE tbl_alumnos SET nombre_alu=?, apellido_alu=?, email_alu=?, telefono_alu=?, fecha_nacimiento=?, direccion_alu=? WHERE id_alu=?";
+            $stmt = mysqli_prepare($conexion, $sql); // Usar la conexión desde el archivo incluido
+            if (!$stmt) {
+                throw new Exception("Error al preparar la consulta: " . mysqli_error($conexion));
+            }
 
-        mysqli_stmt_bind_param($stmt, "sssi", $nombre, $apellido, $email, $id);
-        if (!mysqli_stmt_execute($stmt)) {
-            throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
+            mysqli_stmt_bind_param($stmt, "ssssssi", $nombre, $apellido, $email, $telefono, $fecha, $direccion, $id);
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
+            }
+        } catch (Exception $e) {
+            echo "Error al actualizar el alumno: " . $e->getMessage();
+            exit();
         }
-
         mysqli_stmt_close($stmt);
         mysqli_close($conexion); // Cerrar la conexión desde el archivo incluido
 
@@ -31,15 +43,20 @@ try {
 
     } else {
         // Obtener los datos actuales del alumno
-        $id = $_GET['id'];
-        $stmt = mysqli_prepare($conexion, "SELECT * FROM tbl_alumnos WHERE id_alu=?"); // Usar la conexión desde el archivo incluido
-        if (!$stmt) {
-            throw new Exception("Error al preparar la consulta: " . mysqli_error($conexion));
-        }
+        try{
+            $id = mysqli_real_escape_string($conexion,$_GET['id']);
+            $stmt = mysqli_prepare($conexion, "SELECT * FROM tbl_alumnos WHERE id_alu=?"); // Usar la conexión desde el archivo incluido
+            if (!$stmt) {
+                throw new Exception("Error al preparar la consulta: " . mysqli_error($conexion));
+            }
 
-        mysqli_stmt_bind_param($stmt, "i", $id);
-        if (!mysqli_stmt_execute($stmt)) {
-            throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
+            }
+        } catch (Exception $e) {
+            echo "Error al obtener los datos del alumno: " . $e->getMessage();
+            exit();
         }
 
         $result = mysqli_stmt_get_result($stmt);
@@ -57,12 +74,32 @@ try {
     echo "Se produjo un error: " . $e->getMessage();
 }
 ?>
-
-<!-- Formulario de edición -->
-<form method="post">
-    <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alu'] ?? ''); ?>">
-    Nombre: <input type="text" name="nombre" value="<?php echo htmlspecialchars($alumno['nombre_alu'] ?? ''); ?>"><br>
-    Apellido: <input type="text" name="apellido" value="<?php echo htmlspecialchars($alumno['apellido_alu'] ?? ''); ?>"><br>
-    Email: <input type="email" name="email" value="<?php echo htmlspecialchars($alumno['email_alu'] ?? ''); ?>"><br>
-    <input type="submit" value="Actualizar Alumno">
-</form> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/form.css">
+    <title>Document</title>
+</head>
+    <body>
+    <!-- Formulario de edición -->
+        <form method="post">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alu'] ?? ''); ?>">
+            <label>Nombre: <input type="text" name="nombre" id="nombre" value="<?php echo htmlspecialchars($alumno['nombre_alu'] ?? ''); ?>"></label>
+            <p id="errorNombre"></p>
+            <label>Apellido: <input type="text" name="apellido" id="apellido" value="<?php echo htmlspecialchars($alumno['apellido_alu'] ?? ''); ?>"></label>
+            <p id="errorApellido"></p>
+            <label>Email: <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($alumno['email_alu'] ?? ''); ?>"></label>
+            <p id="errorEmail"></p>
+            <label>Teléfono: <input type="tel" name="telefono" id="telefono" value="<?php echo htmlspecialchars($alumno['telefono_alu'] ?? ''); ?>"></label>
+            <p id="errorTelefono"></p>
+            <label>Fecha De Nacimiento: <input type="date" name="fecha" id="fecha" value="<?php echo htmlspecialchars($alumno['fecha_nacimiento'] ?? ''); ?>"> </label>
+            <p id="errorDia"></p>
+            <label>Direccion: <input type="textarea" name="direccion" id="direccion" value="<?php echo htmlspecialchars($alumno['direccion_alu'] ?? ''); ?>"></label>
+            <p id="errorDireccion"></p>
+            <input type="submit" id="boton" disabled value="Actualizar Alumno">
+        </form> 
+        <script type="text/javascript" src="../js/verifAlu.js"></script>
+    </body>
+</html>

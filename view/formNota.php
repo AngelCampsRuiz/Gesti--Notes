@@ -1,6 +1,13 @@
 <?php
     session_start();
-    $id_alu = 1;
+    if(!isset($_SESSION['id_usu'])){
+        header('Location: ../index.php');
+        exit();
+    }
+    if($_SERVER['REQUEST_METHOD'] !== 'POST'){
+        header('Location: notaAlumno.php');
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +23,7 @@
             <option value="" selected-disabled>Seleccione una asignatura</option>
             <?php
                 require_once '../process/conexion.php';
+                $id_alu = mysqli_real_escape_string($conn,htmlspecialchars(trim($_POST['id'])));
                 $sql = "SELECT asig.id_asig, asig.nombre_asig FROM tbl_asignatura asig LEFT JOIN tbl_notas n ON n.id_asig = asig.id_asig AND n.id_alu = ? WHERE n.id_alu IS NULL";
                     $stmt = mysqli_stmt_init($conn);
                     if (mysqli_stmt_prepare($stmt, $sql)) {
