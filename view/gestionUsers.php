@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    if(!isset($_SESSION['id_usu'])){
+        header('Location: ../index.php');
+        exit();
+    }
 function checkMysqliError($conexion) {
     if (mysqli_connect_errno()) {
         throw new Exception("Error de conexión: " . mysqli_connect_error());
@@ -38,21 +43,69 @@ try {
     if (!$result) {
         throw new Exception("Error al obtener el resultado: " . mysqli_stmt_error($stmt));
     }
-
+?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/styles.css">
+        <title>Document</title>
+    </head>
+<?php
     // Formulario de filtrado
     ?>
-    <form method="get">
-        Nombre: <input type="text" name="nombre" value="<?php echo htmlspecialchars($nombreFiltro); ?>">
-        Apellido: <input type="text" name="apellido" value="<?php echo htmlspecialchars($apellidoFiltro); ?>">
-        <input type="submit" value="Filtrar">
-    </form>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <form class="d-flex" role="search" method="GET" action="">
+                            <label class="nav-link active" aria-current="page">Nombre:</label>
+                            <input class="form-control me-2" type="search" placeholder="Introduce un nombre" aria-label="Search">
+                            <label class="nav-link active" aria-current="page">Apellido:</label>
+                            <input class="form-control me-2" type="search" placeholder="Introduce un apellido" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Buscar</button>
+                        </form>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="cerrarSesion.php"><button class='btn btn-danger'>Cerrar Sesion</button></a>
+            </div>
+        </div>
+    </nav>
+    <h1>Estudiantes</h1>
+    <!-- Botón para crear un nuevo alumno -->
+    <a href="crearAlumno.php"><button class="btn btn-success">Crear Nuevo Alumno</button></a>
+    <a href="vistaNotas.php"><button class="btn btn-primary">Notas De Alumnos</button></a>
     <?php
     // Mostrar los alumnos
     if (mysqli_num_rows($result) > 0) {
         echo "<table><tr><th>Nombre</th><th>Apellido</th><th>Email</th><th>Acciones</th></tr>";
         while($row = mysqli_fetch_assoc($result)) {
-            echo "<tr><td>{$row['nombre_alu']}</td><td>{$row['apellido_alu']}</td><td>{$row['email_alu']}</td>";
-            echo "<td><a href='editarAlumno.php?id={$row['id_alu']}'>Editar</a> | <a href='eliminarAlumno.php?id={$row['id_alu']}'>Eliminar</a></td></tr>";
+            $id = $row['id_alu'];
+            $nombre = $row['nombre_alu'];
+            echo "<tr><td><a href='notaAlumno.php?id={$id}'>$nombre</a></td><td>{$row['apellido_alu']}</td><td>{$row['email_alu']}</td>";
+            echo "<td><a href='editarAlumno.php?id={$row['id_alu']}' class='btn btn-warning'>Editar</a> | ";
+            echo "<a href='#' class='btn btn-danger' data-id='{$row['id_alu']}' data-toggle='modal' data-target='#confirmDeleteModal'>Eliminar</a></td></tr>";
         }
         echo "</table>";
     } else {
@@ -79,3 +132,41 @@ try {
     echo "Se produjo un error: " . $e->getMessage();
 }
 ?>
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar este alumno?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a href="#" id="confirmDeleteButton" class="btn btn-danger">Eliminar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('.delete-link').on('click', function() {
+        var id = $(this).data('id');
+        $('#confirmDeleteButton').attr('href', 'eliminarAlumno.php?id=' + id);
+    });
+});
+</script>

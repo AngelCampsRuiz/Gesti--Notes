@@ -42,4 +42,4 @@ function verificarForm() {
     const hayErrores = errores.some(error => error != "")
     const camposVacios = campos.some(campo => campo == "")
     document.getElementById("boton").disabled = hayErrores || camposVacios
-}   
+}

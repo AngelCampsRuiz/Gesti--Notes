@@ -4,37 +4,47 @@
         exit();
     }
     try {
-        // Conexión a la base de datos
-        require_once '../process/conexion.php';
+        // Incluir el archivo de conexión
+        require_once '../database/conexion.php';
+
+        // Desactivar el autocommit
+        mysqli_autocommit($conexion, false);
+
+        // Verificar que los parámetros existen
+        if (!isset($_GET['id'])) {
+            throw new Exception("Parámetro 'id' insuficiente.");
+        }
 
         $id = $_GET['id'];
-        $idAsignatura = $_GET['idAsignatura'];
 
-        // Preparar la consulta
-        $stmt = mysqli_prepare($conn, "DELETE FROM tbl_alumnos WHERE id_alu=? AND id_asig=?");
+        // Eliminar las notas del alumno
+        $stmt = mysqli_prepare($conexion, "DELETE FROM tbl_notas WHERE id_alu=?");
         if (!$stmt) {
-            throw new Exception("Error al preparar la consulta: " . mysqli_error($conn));
+            throw new Exception("Error al preparar la consulta para eliminar notas: " . mysqli_error($conexion));
         }
 
-        mysqli_stmt_bind_param($stmt, "ii", $id,$idAsignatura);
+        mysqli_stmt_bind_param($stmt, "i", $id);
         if (!mysqli_stmt_execute($stmt)) {
-            throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
+            throw new Exception("Error al ejecutar la consulta para eliminar notas: " . mysqli_stmt_error($stmt));
         }
-
-        echo "Alumno eliminado exitosamente.";
 
         mysqli_stmt_close($stmt);
 
-        $sqlDeleteAlumno = "DELETE FROM tbl_alumnos WHERE id_alu=?";
-        $stmt = mysqli_prepare($conn, $sqlDeleteAlumno);
+        // Eliminar el alumno
+        $stmt = mysqli_prepare($conexion, "DELETE FROM tbl_alumnos WHERE id_alu=?");
         if (!$stmt) {
-            die("Error al preparar la consulta: ". mysqli_error($conn));
-        } else {
-            mysqli_stmt_bind_param($stmt, "i", $id);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close(statement: $stmt);
+            throw new Exception("Error al preparar la consulta para eliminar alumno: " . mysqli_error($conexion));
         }
-        mysqli_close($conn);
+
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception("Error al ejecutar la consulta para eliminar alumno: " . mysqli_stmt_error($stmt));
+        }
+
+        mysqli_stmt_close($stmt);
+
+        mysqli_commit($conexion);
+        mysqli_close($conexion);
         header("Location: gestionUsers.php");
         exit();
     } catch (Exception $e) {

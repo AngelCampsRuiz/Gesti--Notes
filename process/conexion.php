@@ -4,7 +4,7 @@
     $dbpsw = '';
     $bdDatabase = 'bd_escuela';
     try{
-        $conector = @mysqli_connect($dbservidor, $dbusername, $dbpsw, $bdDatabase);
+        $conn = @mysqli_connect($dbservidor, $dbusername, $dbpsw, $bdDatabase);
     } catch(Exception $e){
         echo "Error de conexion: ". $e->getMessage() . "<br>";
         die();

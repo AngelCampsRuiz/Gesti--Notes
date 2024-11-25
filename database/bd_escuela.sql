@@ -36,7 +36,7 @@ CREATE TABLE tbl_notas (
 );
 
 -- creacion de la tabla modulos
-CREATE TABLE tbl_asginatura (
+CREATE TABLE tbl_asignatura (
     id_asig INT AUTO_INCREMENT PRIMARY KEY not null,
     nombre_asig VARCHAR(100) NOT NULL
 );

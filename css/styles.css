@@ -20,58 +20,6 @@ header img {
     width: 100px; /* Ajusta el tamaño del logo */
 }
 
-/* Formulario de inicio de sesión */
-form {
-    background: #fff;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-form input[type="text"],
-form input[type="password"],
-form input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-form input[type="submit"] {
-    background: #28a745; /* Color verde */
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-form input[type="submit"]:hover {
-    background: #218838; /* Color verde más oscuro al pasar el mouse */
-}
-
-form input[type="submit"]:disabled {
-    background-color: #cccccc; /* Gris */
-    color: #666666; /* Texto gris oscuro */
-    cursor: not-allowed; /* Cursor de no permitido */
-}
-
-/* Mensajes de error */
-.error {
-    color: red;
-    font-size: 12px;
-}
-
 /* Tabla de alumnos */
 table {
     width: 100%;
@@ -125,4 +73,7 @@ a:hover {
 /* Estilos para el logo */
 #logo {
     max-width: 150px; /* Ajusta el tamaño del logo */
+}
+h1{
+    text-align: center;
 }
