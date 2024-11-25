@@ -57,7 +57,7 @@ mysqli_close($conexion);
 header("Location: ../index.php");
 exit();
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+    echo "Error: " . $e;
     die();
 }
 ?>
