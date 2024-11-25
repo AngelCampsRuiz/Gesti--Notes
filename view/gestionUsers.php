@@ -58,7 +58,7 @@ try {
     ?>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#">Logo</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -68,34 +68,23 @@ try {
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <form class="d-flex" role="search" method="GET" action="">
+                        <form class="d-flex align-items-center" role="search" method="GET" action="">
                             <label class="nav-link active" aria-current="page">Nombre:</label>
-                            <input class="form-control me-2" type="search" placeholder="Introduce un nombre" aria-label="Search">
+                            <input class="form-control form-control-sm me-2" type="search" name="nombre" placeholder="Introduce un nombre" aria-label="Search" value="<?php echo htmlspecialchars($nombreFiltro); ?>">
                             <label class="nav-link active" aria-current="page">Apellido:</label>
-                            <input class="form-control me-2" type="search" placeholder="Introduce un apellido" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Buscar</button>
+                            <input class="form-control form-control-sm me-2" type="search" name="apellido" placeholder="Introduce un apellido" aria-label="Search" value="<?php echo htmlspecialchars($apellidoFiltro); ?>">
+                            <button class="btn btn-outline-success btn-sm" type="submit">Buscar</button>
                         </form>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
                 </ul>
-                <a href="cerrarSesion.php"><button class='btn btn-danger'>Cerrar Sesion</button></a>
+                <a href="cerrarSesion.php"><button class='btn btn-danger btn-sm'>Cerrar Sesion</button></a>
             </div>
         </div>
     </nav>
     <h1>Estudiantes</h1>
     <!-- Botón para crear un nuevo alumno -->
-    <a href="crearAlumno.php"><button class="btn btn-success">Crear Nuevo Alumno</button></a>
-    <a href="vistaNotas.php"><button class="btn btn-primary">Notas De Alumnos</button></a>
+    <a href="crearAlumno.php"><button class="btn btn-success btn-sm">Crear Nuevo Alumno</button></a>
+    <a href="vistaNotas.php"><button class="btn btn-primary btn-sm">Notas De Alumnos</button></a>
     <?php
     // Mostrar los alumnos
     if (mysqli_num_rows($result) > 0) {
@@ -104,8 +93,8 @@ try {
             $id = $row['id_alu'];
             $nombre = $row['nombre_alu'];
             echo "<tr><td><a href='notaAlumno.php?id={$id}'>$nombre</a></td><td>{$row['apellido_alu']}</td><td>{$row['email_alu']}</td>";
-            echo "<td><a href='editarAlumno.php?id={$row['id_alu']}' class='btn btn-warning'>Editar</a> | ";
-            echo "<a href='#' class='btn btn-danger' data-id='{$row['id_alu']}' data-toggle='modal' data-target='#confirmDeleteModal'>Eliminar</a></td></tr>";
+            echo "<td><a href='editarAlumno.php?id={$row['id_alu']}' class='btn btn-warning btn-sm'>Editar</a> | ";
+            echo "<a href='#' class='btn btn-danger btn-sm delete-link' data-id='{$row['id_alu']}' data-toggle='modal' data-target='#confirmDeleteModal'>Eliminar</a></td></tr>";
         }
         echo "</table>";
     } else {
