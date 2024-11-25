@@ -6,16 +6,17 @@
     }
     require_once '../process/conexion.php';
 
-    // Consulta para obtener informacion de los estudiantes con sus notas de cada asignatura.
-    try{
-        $sqlNotasAlumnos = "SELECT * FROM tbl_alumnos l INNER JOIN tbl_notas n ON n.id_alu = l.id_alu INNER JOIN tbl_asignatura a ON n.id_asig = a.id_asig";
-        $stmtNotasAlumnos = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmtNotasAlumnos, $sqlNotasAlumnos);
-        mysqli_stmt_execute($stmtNotasAlumnos);
-        $resultNotasAlumnos = mysqli_stmt_get_result($stmtNotasAlumnos);
-    } catch(Exception $e){
-        echo "Error: " . $e->getMessage();
-        exit();
+    if($_SERVER['REQUEST_METHOD'] !== 'GET' || $_SERVER['REQUEST_METHOD'] !== 'POST'){
+        try{
+            $sqlNotasAlumnos = "SELECT * FROM tbl_alumnos l INNER JOIN tbl_notas n ON n.id_alu = l.id_alu INNER JOIN tbl_asignatura a ON n.id_asig = a.id_asig";
+            $stmtNotasAlumnos = mysqli_stmt_init($conn);
+            mysqli_stmt_prepare($stmtNotasAlumnos, $sqlNotasAlumnos);
+            mysqli_stmt_execute($stmtNotasAlumnos);
+            $resultNotasAlumnos = mysqli_stmt_get_result($stmtNotasAlumnos);
+        } catch(Exception $e){
+            echo "Error: " . $e->getMessage();
+            exit();
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -24,31 +25,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-    <a href="gestionUsers.php"><button>Vista Alumnos</button></a>
-    <table>
-        <thead>
-            <tr>
-                <th>ID Estudiante</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Asignatura</th>
-                <th>Nota</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while($row = mysqli_fetch_assoc($resultNotasAlumnos)):?>
-                <tr>
-                    <td><?php echo $row['id_alu'];?></td>
-                    <td><?php echo $row['nombre_alu'];?></td>
-                    <td><?php echo $row['apellido_alu'];?></td>
-                    <td><?php echo $row['nombre_asig'];?></td>
-                    <td><?php echo $row['nota_alu'];?></td>
-                </tr>
-            <?php endwhile;?>
-        </tbody>
-    </table>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="vistaNotas.php?asignatura">Media Asignaturas</a>
+                    </li>
+                </ul>
+                <a href="cerrarSesion.php"><button class='btn btn-danger'>Cerrar Sesion</button></a>
+            </div>
+        </div>
+    </nav>
+    <h1>Notas de Asignaturas</h1>
+    <a href="gestionUsers.php"><button class="btn btn-primary">Vista Alumnos</button></a>
+    <?php
+        require_once '../process/filtrosNotas.php';
+            if($resultNotasAlumnos){
+                echo "<table>";
+                    echo "<thead>";
+                        echo "<tr>";
+                            echo "<th>Asignatura</th>";
+                            echo "<th>Media</th>";
+                            echo "<th>Alumno</th>";
+                            echo "<th>Nota</th>";
+                        echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
+                    while($rowNotasAlumnos = mysqli_fetch_assoc($resultNotasAlumnos)){
+                        echo "<tr>";
+                            echo "<td>".$rowNotasAlumnos['nombre_asig']."</td>";
+                            echo "<td>".(isset($rowNotasAlumnos['promedio']) ? number_format($rowNotasAlumnos['promedio'], 2) : "----------")." </td>";
+                            echo "<td>".$rowNotasAlumnos['nombre_alu']."</td>";
+                            echo "<td>".number_format($rowNotasAlumnos['nota_alu'], 2)."</td>";
+                        echo "</tr>";
+                    }
+                    echo "</tbody>";
+                echo "</table>";
+            } else {
+                echo "<p>No hay notas para mostrar</p>";
+            }
+    ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -7,25 +7,30 @@ if(!isset($_SESSION['id_usu'])){
 // Incluir el archivo de conexión
 include '../database/conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nombre = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['nombre'])));
-    $apellido = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['apellido'])));
-    $email = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['email'])));
-    $telefono = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['telefono'])));
-    $direccion = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['direccion'])));
-    $fecha_nacimiento = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['fecha_nacimiento'])));
+try{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $nombre = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['nombre'])));
+        $apellido = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['apellido'])));
+        $email = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['email'])));
+        $telefono = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['telefono'])));
+        $direccion = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['direccion'])));
+        $fecha_nacimiento = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['fecha_nacimiento'])));
 
-    // Preparar la consulta
-    $stmt = mysqli_prepare($conexion, "INSERT INTO tbl_alumnos (nombre_alu, apellido_alu, email_alu, telefono_alu, direccion_alu, fecha_nacimiento) VALUES (?, ?, ?, ?, ?, ?)");
-    mysqli_stmt_bind_param($stmt, "ssssss", $nombre, $apellido, $email, $telefono, $direccion, $fecha_nacimiento);
+        // Preparar la consulta
+        $stmt = mysqli_prepare($conexion, "INSERT INTO tbl_alumnos (nombre_alu, apellido_alu, email_alu, telefono_alu, direccion_alu, fecha_nacimiento) VALUES (?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($stmt, "ssssss", $nombre, $apellido, $email, $telefono, $direccion, $fecha_nacimiento);
 
-    if (mysqli_stmt_execute($stmt)) {
-        echo "<script>alert('Alumno creado exitosamente.'); window.location.href='gestionUsers.php';</script>";
-    } else {
-        echo "<script>alert('Error: " . mysqli_stmt_error($stmt) . "');</script>";
+        if (mysqli_stmt_execute($stmt)) {
+            echo "<script>alert('Alumno creado exitosamente.'); window.location.href='gestionUsers.php';</script>";
+        } else {
+            echo "<script>alert('Error: " . mysqli_stmt_error($stmt) . "');</script>";
+        }
+
+        mysqli_stmt_close($stmt);
     }
-
-    mysqli_stmt_close($stmt);
+} catch(Exception $e) {
+    echo "Error: ". $e->getMessage();
+    exit();
 }
 
 mysqli_close($conexion);

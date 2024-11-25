@@ -88,12 +88,13 @@ try {
                         </ul>
                     </li>
                 </ul>
-                <!-- Botón para crear un nuevo alumno -->
-                <a href="crearAlumno.php"><button class="btn btn-success">Crear Nuevo Alumno</button></a>
+                <a href="cerrarSesion.php"><button class='btn btn-danger'>Cerrar Sesion</button></a>
             </div>
         </div>
     </nav>
     <h1>Estudiantes</h1>
+    <!-- Botón para crear un nuevo alumno -->
+    <a href="crearAlumno.php"><button class="btn btn-success">Crear Nuevo Alumno</button></a>
     <a href="vistaNotas.php"><button class="btn btn-primary">Notas De Alumnos</button></a>
     <?php
     // Mostrar los alumnos
