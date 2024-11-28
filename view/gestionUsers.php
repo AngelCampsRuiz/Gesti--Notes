@@ -126,60 +126,15 @@
         echo "<div class='pagination'>";
         for ($i = 1; $i <= $totalPaginas; $i++) {
             if ($i == $paginaActual) {
-                echo "<strong>Página: $i</strong> ";
+                echo "<strong>$i</strong> ";
             } else {
                 echo "<a href='?pagina=$i&alumnosPorPagina=$alumnosPorPagina&nombre=$nombreFiltro&apellido=$apellidoFiltro'>$i</a> ";
             }
         }
         echo "</div>";
 
-} catch (Exception $e) {
-    echo "Se produjo un error: " . $e;
-}
-?>
-
-<!-- Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js" integrity="sha256-1m4qVbsdcSU19tulVTbeQReg0BjZiW6yGffnlr/NJu4=" crossorigin="anonymous"></script>
-
-<!-- Modal de confirmación -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de que deseas eliminar este alumno?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <a href="#" id="confirmDeleteButton" class="btn btn-danger">Eliminar</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-$(document).ready(function() {
-    $('.delete-link').on('click', function() {
-        var id = $(this).data('id');
-        $('#confirmDeleteButton').attr('href', 'eliminarAlumno.php?id=' + id);
-    });
-});
-if(typeof loginSucces !== 'undefined' && loginSucces){
-    swal.fire({
-        title: 'Sesion iniciada',
-        text: 'Bienvenido ' + user + '!',
-        icon:'success',
-    })
-}
-</script>
+    } catch (Exception $e) {
+        echo "Se produjo un error: " . $e->getMessage();
+    }
+    ?>
+</body>
