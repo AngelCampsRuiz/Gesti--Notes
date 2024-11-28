@@ -6,74 +6,122 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    overflow: auto;
+    overflow-y: auto;
 }
 
-/* Encabezado */
-header {
-    background: #5b97d7; /* Color azul */
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+/* Barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: #5b97d7;
 }
 
-header img {
-    width: 100px; /* Ajusta el tamaño del logo */
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: white;
 }
 
-/* Formulario de inicio de sesión */
-form {
-    background: #fff;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-form input[type="text"],
-form input[type="password"],
-form input[type="email"] {
-    width: 95%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-form input[type="submit"] {
-    background: #28a745; /* Color verde */
-    color: #fff;
+.navbar .btn {
+    margin: 5px 0;
+    background-color: #dc3545;
+    color: white;
     border: none;
-    padding: 10px;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.navbar .btn:hover {
+    background-color: #c82333;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.search-form label {
+    margin-right: 5px;
+}
+
+.search-form input {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.search-form button {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    display: block;
-    margin: 0 auto; /* Centra el botón */
+    margin-right: 10px;
 }
 
-form input[type="submit"]:hover {
-    background: #218838; /* Color verde más oscuro al pasar el mouse */
+.search-form button:last-child {
+    background-color: #dc3545;
 }
 
-/* Mensajes de error */
-.error {
-    color: red;
-    font-size: 12px;
+.search-form button:hover {
+    background-color: #218838;
+}
+
+.search-form button:last-child:hover {
+    background-color: #c82333;
+}
+
+/* Estilos específicos para la página de gestión de usuarios */
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.buttons-container a {
+    margin: 10px;
+}
+
+.buttons-container .btn-success,
+.buttons-container .btn-info {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+.buttons-container .btn-success:hover,
+.buttons-container .btn-info:hover {
+    background-color: #218838;
 }
 
 /* Estilos para la tabla de alumnos */
 table {
-    width: 90%; /* Cambia el ancho de la tabla a un 90% del contenedor */
-    max-width: 1000px; /* Establece un ancho máximo para la tabla */
+    width: 90%;
+    max-width: 1000px;
     border-collapse: collapse;
-    margin: 20px auto; /* Centra la tabla horizontalmente */
+    margin: 20px auto;
 }
 
 th, td {
@@ -82,37 +130,22 @@ th, td {
 }
 
 th {
-    background-color: #5b97d7; /* Color azul para encabezados */
+    background-color: #5b97d7;
     color: white;
+}
+
+td.email {
+    display: table-cell;
 }
 
 /* Enlaces de acción en la tabla */
 a {
-    color: #007BFF; /* Color azul para enlaces */
+    color: #007BFF;
     text-decoration: none;
 }
 
-/* Estilos para el botón de crear nuevo alumno */
-.create-button {
-    display: block; /* Hace que el botón ocupe toda la línea */
-    width: 200px; /* Ancho fijo para el botón */
-    margin: 20px auto; /* Centra el botón horizontalmente */
-    background-color: #5b97d7; /* Color que combina con el header */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    padding: 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    text-align: center; /* Centra el texto dentro del botón */
-    font-size: 16px; /* Tamaño de fuente */
-    cursor: pointer; /* Cambia el cursor al pasar el mouse */
-}
-
-.create-button:hover {
-    background-color: #4a8cc7; /* Color más oscuro al pasar el mouse */
-}
-
 a:hover {
-    text-decoration: underline; /* Subrayar al pasar el mouse */
+    text-decoration: underline;
 }
 
 /* Paginación */
@@ -136,33 +169,69 @@ a:hover {
 
 /* Estilos para el logo */
 #logo {
-    max-width: 150px; /* Ajusta el tamaño del logo */
+    max-width: 50px;
+    height: auto;
 }
 
-/* Estilos específicos para la página de gestión de usuarios */
-h2 {
-    text-align: center;
-    color: #333;
+/* Control de paginación */
+.pagination-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
 }
 
-form {
-    max-width: 600px; /* Ajusta el ancho del formulario de filtrado */
-    margin: 20px auto; /* Centra el formulario */
-    padding: 20px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
-}
+/* Media Queries para dispositivos móviles */
+/* Media Queries para dispositivos móviles */
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
 
-form input[type="text"],
-form input[type="email"] {
-    width: calc(100% - 22px); /* Ajustar el ancho para el padding */
-}
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+    }
 
-.pagination {
-    text-align: center;
-    margin: 20px 0; /* Espaciado arriba y abajo */
-}
+    .search-form {
+        flex-direction: row;
+        justify-content: center;
+    }
 
-.error {
-    text-align: center; /* Centra el mensaje de error */
+    .search-form label {
+        display: none; /* Ocultar labels en dispositivos móviles */
+    }
+
+    .search-form input {
+        margin-bottom: 10px;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .search-form button {
+        margin-bottom: 0;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons-container a {
+        margin: 10px 0;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th.email, td.email {
+        display: none !important; /* Asegurar que el campo de correo electrónico esté oculto */
+    }
+
+    .pagination-control {
+        flex-direction: column;
+        align-items: center;
+    }
 }
