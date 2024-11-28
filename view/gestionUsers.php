@@ -10,11 +10,21 @@
         $user = $_SESSION['username'];
         echo "<script> let loginSucces = true; let user = '$user';</script>";
     }
-function checkMysqliError($conexion) {
-    if (mysqli_connect_errno()) {
-        throw new Exception("Error de conexión: " . mysqli_connect_error());
+
+    // Inicializar variables de filtro
+    $nombreFiltro = isset($_GET['nombre']) ? $_GET['nombre'] : '';
+    $apellidoFiltro = isset($_GET['apellido']) ? $_GET['apellido'] : '';
+
+    // Obtener el número de alumnos por página
+    $alumnosPorPagina = isset($_GET['alumnosPorPagina']) ? (int)$_GET['alumnosPorPagina'] : 10;
+    $paginaActual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+    $offset = ($paginaActual - 1) * $alumnosPorPagina;
+
+    function checkMysqliError($conexion) {
+        if (mysqli_connect_errno()) {
+            throw new Exception("Error de conexión: " . mysqli_connect_error());
+        }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,21 +35,48 @@ function checkMysqliError($conexion) {
     <link rel="stylesheet" type="text/css" href="./../css/styles.css">
 </head>
 <body>
-    <h2 id="iniciar-sesion">Gestion de Usuarios</h2>
+    <nav class="navbar">
+        <a class="navbar-brand" href="#">
+            <img src="../img/LogoEscuela.jpeg" alt="Logo" id="logo">
+        </a>
+        <a href="cerrarSesion.php"><button class='btn btn-danger btn-sm'>Cerrar Sesion</button></a>
+    </nav>
+
+    <div class="search-container">
+        <form class="search-form" role="search" method="GET" action="">
+            <label>Nombre:</label>
+            <input type="search" name="nombre" placeholder="Introduce un nombre" value="<?php echo htmlspecialchars($nombreFiltro); ?>">
+            <label>Apellido:</label>
+            <input type="search" name="apellido" placeholder="Introduce un apellido" value="<?php echo htmlspecialchars($apellidoFiltro); ?>">
+            <button type="submit">Buscar</button>
+            <button type="button" onclick="window.location.href='gestionUsers.php'">Borrar Filtros</button>
+        </form>
+    </div>
+
+    <h1>Estudiantes</h1>
+    <div class="buttons-container">
+        <a href="crearAlumno.php"><button class="btn btn-success btn-sm">Crear Nuevo Alumno</button></a>
+        <a href="vistaNotas.php"><button class="btn btn-info btn-sm">Notas De Alumnos</button></a>
+    </div>
+
+    <div class="pagination-control">
+        <form method="GET" action="">
+            <label for="alumnosPorPagina">Alumnos por página:</label>
+            <select name="alumnosPorPagina" id="alumnosPorPagina" onchange="this.form.submit()">
+                <option value="5" <?php if ($alumnosPorPagina == 5) echo 'selected'; ?>>5</option>
+                <option value="10" <?php if ($alumnosPorPagina == 10) echo 'selected'; ?>>10</option>
+                <option value="20" <?php if ($alumnosPorPagina == 20) echo 'selected'; ?>>20</option>
+            </select>
+            <input type="hidden" name="nombre" value="<?php echo htmlspecialchars($nombreFiltro); ?>">
+            <input type="hidden" name="apellido" value="<?php echo htmlspecialchars($apellidoFiltro); ?>">
+        </form>
+    </div>
+
     <?php
     try {
         // Incluir el archivo de conexión
         include '../database/conexion.php';
         checkMysqliError($conexion);
-
-        // Obtener el número de alumnos por página
-        $alumnosPorPagina = isset($_GET['alumnosPorPagina']) ? (int)$_GET['alumnosPorPagina'] : 10;
-        $paginaActual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-        $offset = ($paginaActual - 1) * $alumnosPorPagina;
-
-        // Obtener filtros
-        $nombreFiltro = isset($_GET['nombre']) ? $_GET['nombre'] : '';
-        $apellidoFiltro = isset($_GET['apellido']) ? $_GET['apellido'] : '';
 
         // Preparar la consulta con filtros
         $sql = "SELECT * FROM tbl_alumnos WHERE nombre_alu LIKE ? AND apellido_alu LIKE ? LIMIT ?, ?";
@@ -56,68 +93,25 @@ function checkMysqliError($conexion) {
             throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
         }
 
-    $result = mysqli_stmt_get_result($stmt);
-    if (!$result) {
-        throw new Exception("Error al obtener el resultado: " . mysqli_stmt_error($stmt));
-    }
-?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" integrity="sha256-qWVM38RAVYHA4W8TAlDdszO1hRaAq0ME7y2e9aab354=" crossorigin="anonymous">
-        <link rel="stylesheet" href="../css/styles.css">
-        <title>Document</title>
-    </head>
-<?php
-    // Formulario de filtrado
-    ?>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Logo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <form class="d-flex align-items-center" role="search" method="GET" action="">
-                            <label class="nav-link active" aria-current="page">Nombre:</label>
-                            <input class="form-control form-control-sm me-2" type="search" name="nombre" placeholder="Introduce un nombre" aria-label="Search" value="<?php echo htmlspecialchars($nombreFiltro); ?>">
-                            <label class="nav-link active" aria-current="page">Apellido:</label>
-                            <input class="form-control form-control-sm me-2" type="search" name="apellido" placeholder="Introduce un apellido" aria-label="Search" value="<?php echo htmlspecialchars($apellidoFiltro); ?>">
-                            <button class="btn btn-outline-success btn-sm" type="submit">Buscar</button>
-                        </form>
-                    </li>
-                </ul>
-                <a href="cerrarSesion.php"><button class='btn btn-danger btn-sm'>Cerrar Sesion</button></a>
-            </div>
-        </div>
-    </nav>
-    <h1>Estudiantes</h1>
-    <!-- Botón para crear un nuevo alumno -->
-    <a href="crearAlumno.php"><button class="btn btn-success btn-sm">Crear Nuevo Alumno</button></a>
-    <a href="vistaNotas.php"><button class="btn btn-primary btn-sm">Notas De Alumnos</button></a>
-    <?php
-    // Mostrar los alumnos
-    if (mysqli_num_rows($result) > 0) {
-        echo "<table><tr><th>Nombre</th><th>Apellido</th><th>Email</th><th>Acciones</th></tr>";
-        while($row = mysqli_fetch_assoc($result)) {
-            $id = $row['id_alu'];
-            $nombre = $row['nombre_alu'];
-            echo "<tr><td><a href='notaAlumno.php?id={$id}'>$nombre</a></td><td>{$row['apellido_alu']}</td><td>{$row['email_alu']}</td>";
-            echo "<td><a href='editarAlumno.php?id={$row['id_alu']}' class='btn btn-warning btn-sm'>Editar</a> | ";
-            echo "<a href='#' class='btn btn-danger btn-sm delete-link' data-id='{$row['id_alu']}' data-toggle='modal' data-target='#confirmDeleteModal'>Eliminar</a></td></tr>";
+        $result = mysqli_stmt_get_result($stmt);
+        if (!$result) {
+            throw new Exception("Error al obtener el resultado: " . mysqli_stmt_error($stmt));
         }
-        echo "</table>";
-    } else {
-        echo "No hay alumnos."; 
-    }
+
+        // Mostrar los alumnos
+        if (mysqli_num_rows($result) > 0) {
+            echo "<table><tr><th>Nombre</th><th>Apellido</th><th class='email'>Email</th><th>Acciones</th></tr>";
+            while($row = mysqli_fetch_assoc($result)) {
+                $id = $row['id_alu'];
+                $nombre = $row['nombre_alu'];
+                echo "<tr><td><a href='notaAlumno.php?id={$id}'>$nombre</a></td><td>{$row['apellido_alu']}</td><td class='email'>{$row['email_alu']}</td>";
+                echo "<td><a href='editarAlumno.php?id={$row['id_alu']}' class='btn btn-warning btn-sm'>Editar</a> | ";
+                echo "<a href='#' class='btn btn-danger btn-sm delete-link' data-id='{$row['id_alu']}' data-toggle='modal' data-target='#confirmDeleteModal'>Eliminar</a></td></tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "No hay alumnos."; 
+        }
 
         // Calcular el número total de páginas
         $totalAlumnosResult = mysqli_query($conexion, "SELECT COUNT(*) as total FROM tbl_alumnos");
@@ -128,7 +122,7 @@ function checkMysqliError($conexion) {
         $totalAlumnos = mysqli_fetch_assoc($totalAlumnosResult)['total'];
         $totalPaginas = ceil($totalAlumnos / $alumnosPorPagina);
 
- // Navegación de páginas
+        // Navegación de páginas
         echo "<div class='pagination'>";
         for ($i = 1; $i <= $totalPaginas; $i++) {
             if ($i == $paginaActual) {

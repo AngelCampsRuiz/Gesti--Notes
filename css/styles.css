@@ -1,65 +1,117 @@
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    overflow: auto;
+    overflow-y: auto;
 }
 
-header {
-    background: #5b97d7;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+/* Barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: #5b97d7;
 }
 
-header img {
-    width: 100px;
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: white;
 }
 
-form {
-    background: #fff;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-form input[type="text"],
-form input[type="password"],
-form input[type="email"] {
-    width: 95%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-form input[type="submit"] {
-    background: #28a745;
-    color: #fff;
+.navbar .btn {
+    margin: 5px 0;
+    background-color: #dc3545;
+    color: white;
     border: none;
-    padding: 10px;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.navbar .btn:hover {
+    background-color: #c82333;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.search-form label {
+    margin-right: 5px;
+}
+
+.search-form input {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.search-form button {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    display: block;
-    margin: 0 auto;
+    margin-right: 10px;
 }
 
-form input[type="submit"]:hover {
-    background: #218838;
+.search-form button:last-child {
+    background-color: #dc3545;
 }
 
-.error {
-    color: red;
-    font-size: 12px;
+.search-form button:hover {
+    background-color: #218838;
+}
+
+.search-form button:last-child:hover {
+    background-color: #c82333;
+}
+
+/* Estilos específicos para la página de gestión de usuarios */
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.buttons-container a {
+    margin: 10px;
+}
+
+.buttons-container .btn-success,
+.buttons-container .btn-info {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+.buttons-container .btn-success:hover,
+.buttons-container .btn-info:hover {
+    background-color: #218838;
 }
 
 table {
@@ -79,28 +131,14 @@ th {
     color: white;
 }
 
+td.email {
+    display: table-cell;
+}
 
+/* Enlaces de acción en la tabla */
 a {
     color: #007BFF;
     text-decoration: none;
-}
-
-.create-button {
-    display: block;
-    width: 200px;
-    margin: 20px auto;
-    background-color: #5b97d7;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.create-button:hover {
-    background-color: #4a8cc7;
 }
 
 a:hover {
@@ -126,34 +164,71 @@ a:hover {
 }
 
 #logo {
-    max-width: 150px;
+    max-width: 50px;
+    height: auto;
 }
 
-h2 {
-    text-align: center;
-    color: #333;
-}
-
-form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-form input[type="text"],
-form input[type="email"] {
-    width: calc(100% - 22px);
-}
-
-.pagination {
-    text-align: center;
+/* Control de paginación */
+.pagination-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 20px 0;
 }
 
-.error {
-    text-align: center;
+/* Media Queries para dispositivos móviles */
+/* Media Queries para dispositivos móviles */
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-form {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .search-form label {
+        display: none; /* Ocultar labels en dispositivos móviles */
+    }
+
+    .search-form input {
+        margin-bottom: 10px;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .search-form button {
+        margin-bottom: 0;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons-container a {
+        margin: 10px 0;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th.email, td.email {
+        display: none !important; /* Asegurar que el campo de correo electrónico esté oculto */
+    }
+
+    .pagination-control {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 header.enlinea {
