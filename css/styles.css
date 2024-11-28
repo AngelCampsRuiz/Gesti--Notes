@@ -1,6 +1,3 @@
-/* styles.css */
-
-/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -8,19 +5,17 @@ body {
     padding: 0;
 }
 
-/* Encabezado */
 header {
-    background: #5b97d7; /* Color azul */
+    background: #5b97d7;
     color: #fff;
     padding: 20px 0;
     text-align: center;
 }
 
 header img {
-    width: 100px; /* Ajusta el tamaño del logo */
+    width: 100px;
 }
 
-/* Formulario de inicio de sesión */
 form {
     background: #fff;
     max-width: 400px;
@@ -47,7 +42,7 @@ form input[type="email"] {
 }
 
 form input[type="submit"] {
-    background: #28a745; /* Color verde */
+    background: #28a745;
     color: #fff;
     border: none;
     padding: 10px;
@@ -55,25 +50,23 @@ form input[type="submit"] {
     cursor: pointer;
     font-size: 16px;
     display: block;
-    margin: 0 auto; /* Centra el botón */
+    margin: 0 auto;
 }
 
 form input[type="submit"]:hover {
-    background: #218838; /* Color verde más oscuro al pasar el mouse */
+    background: #218838;
 }
 
-/* Mensajes de error */
 .error {
     color: red;
     font-size: 12px;
 }
 
-/* Estilos para la tabla de alumnos */
 table {
-    width: 90%; /* Cambia el ancho de la tabla a un 90% del contenedor */
-    max-width: 1000px; /* Establece un ancho máximo para la tabla */
+    width: 90%;
+    max-width: 1000px;
     border-collapse: collapse;
-    margin: 20px auto; /* Centra la tabla horizontalmente */
+    margin: 20px auto;
 }
 
 th, td {
@@ -82,40 +75,38 @@ th, td {
 }
 
 th {
-    background-color: #5b97d7; /* Color azul para encabezados */
+    background-color: #5b97d7;
     color: white;
 }
 
-/* Enlaces de acción en la tabla */
+
 a {
-    color: #007BFF; /* Color azul para enlaces */
+    color: #007BFF;
     text-decoration: none;
 }
 
-/* Estilos para el botón de crear nuevo alumno */
 .create-button {
-    display: block; /* Hace que el botón ocupe toda la línea */
-    width: 200px; /* Ancho fijo para el botón */
-    margin: 20px auto; /* Centra el botón horizontalmente */
-    background-color: #5b97d7; /* Color que combina con el header */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    padding: 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    text-align: center; /* Centra el texto dentro del botón */
-    font-size: 16px; /* Tamaño de fuente */
-    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    background-color: #5b97d7;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .create-button:hover {
-    background-color: #4a8cc7; /* Color más oscuro al pasar el mouse */
+    background-color: #4a8cc7;
 }
 
 a:hover {
-    text-decoration: underline; /* Subrayar al pasar el mouse */
+    text-decoration: underline;
 }
 
-/* Paginación */
 .pagination {
     text-align: center;
     margin: 20px 0;
@@ -134,35 +125,59 @@ a:hover {
     color: white;
 }
 
-/* Estilos para el logo */
 #logo {
-    max-width: 150px; /* Ajusta el tamaño del logo */
+    max-width: 150px;
 }
 
-/* Estilos específicos para la página de gestión de usuarios */
 h2 {
     text-align: center;
     color: #333;
 }
 
 form {
-    max-width: 600px; /* Ajusta el ancho del formulario de filtrado */
-    margin: 20px auto; /* Centra el formulario */
-    padding: 20px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 form input[type="text"],
 form input[type="email"] {
-    width: calc(100% - 22px); /* Ajustar el ancho para el padding */
+    width: calc(100% - 22px);
 }
 
 .pagination {
     text-align: center;
-    margin: 20px 0; /* Espaciado arriba y abajo */
+    margin: 20px 0;
 }
 
 .error {
-    text-align: center; /* Centra el mensaje de error */
+    text-align: center;
+}
+
+header.enlinea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    header.enlinea {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+header.enlinea img {
+    width: 80px;
+}
+
+header.enlinea h2 {
+    font-size: 1.8rem;
+    margin: 0;
 }
