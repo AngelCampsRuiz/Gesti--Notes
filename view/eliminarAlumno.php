@@ -48,5 +48,5 @@
         header("Location: gestionUsers.php");
         exit();
     } catch (Exception $e) {
-        echo "Se produjo un error: " . $e->getMessage();
+        echo "Se produjo un error: " . $e;
     }

@@ -8,6 +8,9 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
     exit();
 }
 
+$user = isset($_POST['user']) ? trim($_POST['user']) : '';
+$pwd = isset($_POST['pwd']) ? trim($_POST['pwd']) : '';
+
 if (empty($_POST['user']) || empty($_POST['pwd'])) {
     mysqli_close($conexion);
     header("Location: ../view/cerrarSesion.php");
@@ -56,7 +59,7 @@ mysqli_close($conexion);
 header("Location: ../index.php");
 exit();
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+    echo "Error: " . $e;
     die();
 }
 ?>

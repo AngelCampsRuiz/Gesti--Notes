@@ -14,7 +14,7 @@
             mysqli_stmt_execute($stmtNotasAlumnos);
             $resultNotasAlumnos = mysqli_stmt_get_result($stmtNotasAlumnos);
         } catch(Exception $e){
-            echo "Error: " . $e->getMessage();
+            echo "Error: " . $e;
             exit();
         }
     }
@@ -39,6 +39,7 @@
 <h1>Notas de Asignaturas</h1>
 <div class="buttons-container">
     <a href="gestionUsers.php"><button class="btn btn-primary">Vista Alumnos</button></a>
+    <a href="vistaNotas.php?asignatura"><button class="btn btn-primary">Media Asignaturas</button></a>
 </div>
 
 <?php

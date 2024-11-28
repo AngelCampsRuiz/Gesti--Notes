@@ -33,7 +33,7 @@ try {
         mysqli_close($conexion);
 
         echo "Nota insertada correctamente.";
-        header("Location: ../view/notaAlumno.php?id=$id_alu");
+        header("Location: ../view/gestionUsers.php");
         exit();
     } else {
         header('Location: ../view/notaAlumno.php');
