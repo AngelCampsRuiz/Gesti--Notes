@@ -10,7 +10,7 @@ body {
 
 /* Encabezado */
 header {
-    background: #007BFF; /* Color azul */
+    background: #5b97d7; /* Color azul */
     color: #fff;
     padding: 20px 0;
     text-align: center;
@@ -20,15 +20,60 @@ header img {
     width: 100px; /* Ajusta el tamaño del logo */
 }
 
-/* Tabla de alumnos */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+/* Formulario de inicio de sesión */
+form {
+    background: #fff;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input[type="submit"] {
+    background: #28a745; /* Color verde */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    margin: 0 auto; /* Centra el botón */
+}
+
+form input[type="submit"]:hover {
+    background: #218838; /* Color verde más oscuro al pasar el mouse */
+}
+
+/* Mensajes de error */
+.error {
+    color: red;
+    font-size: 12px;
+}
+
+/* Estilos para la tabla de alumnos */
+table {
+    width: 90%; /* Cambia el ancho de la tabla a un 90% del contenedor */
+    max-width: 1000px; /* Establece un ancho máximo para la tabla */
+    border-collapse: collapse;
+    margin: 20px auto; /* Centra la tabla horizontalmente */
 }
 
 th, td {
@@ -37,7 +82,7 @@ th, td {
 }
 
 th {
-    background-color: #007BFF; /* Color azul para encabezados */
+    background-color: #5b97d7; /* Color azul para encabezados */
     color: white;
 }
 
@@ -45,6 +90,25 @@ th {
 a {
     color: #007BFF; /* Color azul para enlaces */
     text-decoration: none;
+}
+
+/* Estilos para el botón de crear nuevo alumno */
+.create-button {
+    display: block; /* Hace que el botón ocupe toda la línea */
+    width: 200px; /* Ancho fijo para el botón */
+    margin: 20px auto; /* Centra el botón horizontalmente */
+    background-color: #5b97d7; /* Color que combina con el header */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center; /* Centra el texto dentro del botón */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+}
+
+.create-button:hover {
+    background-color: #4a8cc7; /* Color más oscuro al pasar el mouse */
 }
 
 a:hover {
@@ -74,6 +138,31 @@ a:hover {
 #logo {
     max-width: 150px; /* Ajusta el tamaño del logo */
 }
-h1{
+
+/* Estilos específicos para la página de gestión de usuarios */
+h2 {
     text-align: center;
+    color: #333;
+}
+
+form {
+    max-width: 600px; /* Ajusta el ancho del formulario de filtrado */
+    margin: 20px auto; /* Centra el formulario */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+form input[type="text"],
+form input[type="email"] {
+    width: calc(100% - 22px); /* Ajustar el ancho para el padding */
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0; /* Espaciado arriba y abajo */
+}
+
+.error {
+    text-align: center; /* Centra el mensaje de error */
 }
