@@ -30,7 +30,7 @@
 </head>
 <body>
 <nav class="navbar">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="gestionUsers.php">
         <img src="../img/LogoEscuela.jpeg" alt="Logo" id="logo">
     </a>
     <a href="cerrarSesion.php"><button class='btn btn-danger'>Cerrar Sesion</button></a>
