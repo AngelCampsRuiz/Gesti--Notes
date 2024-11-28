@@ -27,7 +27,7 @@ try{
     $pwd = mysqli_real_escape_string($conexion, htmlspecialchars($_POST['pwd']));
     $_SESSION['user'] = $user;
 
-    $query = "SELECT id_usu, password_usu FROM tbl_usuarios WHERE username_usu = ?";
+    $query = "SELECT id_usu, username_usu ,password_usu FROM tbl_usuarios WHERE username_usu = ?";
     $stmt = mysqli_stmt_init($conexion);
 
     if (mysqli_stmt_prepare($stmt, $query)) {
@@ -42,6 +42,8 @@ try{
 
                 mysqli_stmt_close($stmt);
                 mysqli_close($conexion);
+                $_SESSION['loginTrue'] = true;
+                $_SESSION['username'] = $row['username_usu'];
                 header("Location: ../view/gestionUsers.php");
                 exit();
             }

@@ -60,12 +60,17 @@ document.getElementById("fecha").onmouseleave = function validaFecha() {
     if(fecha.length == 0 || fecha == null || /^\s+$/.test(fecha)) {
         errorFecha = "El campo fecha no puede estar vacío"
     } else if(!fechaValida(fecha)) {
-        errorFecha = "La fecha no es válida"
+        errorFecha = "El alumno debe tener al menos 18 años"
     }
     function fechaValida(fecha) {
         let fechaNueva = new Date(fecha);
         let fechaActual = new Date();
-        return fechaNueva < fechaActual;
+        let diferenciaAnios = fechaActual.getFullYear() - fechaNueva.getFullYear();
+        if (fechaActual.getMonth() < fechaNueva.getMonth() || 
+            (fechaActual.getMonth() === fechaNueva.getMonth() && fechaActual.getDate() < fechaNueva.getDate())) {
+            diferenciaAnios--;
+        }
+        return diferenciaAnios >= 18;
     }    
     document.getElementById("errorDia").innerHTML = errorFecha
     veriForm()
