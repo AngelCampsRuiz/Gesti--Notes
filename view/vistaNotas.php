@@ -40,6 +40,7 @@
 <div class="buttons-container">
     <a href="gestionUsers.php"><button class="btn btn-primary">Vista Alumnos</button></a>
     <a href="vistaNotas.php?asignatura"><button class="btn btn-primary">Media Asignaturas</button></a>
+    <a href="vistaNotas.php"><button class="btn btn-danger">Vista Notas</button></a>
 </div>
 
 <?php
