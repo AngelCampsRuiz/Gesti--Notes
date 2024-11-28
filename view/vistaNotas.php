@@ -39,6 +39,7 @@
 <h1>Notas de Asignaturas</h1>
 <div class="buttons-container">
     <a href="gestionUsers.php"><button class="btn btn-primary">Vista Alumnos</button></a>
+    <a href="vistaNotas.php?asignatura"><button class="btn btn-primary">Media Asignaturas</button></a>
 </div>
 
 <?php
