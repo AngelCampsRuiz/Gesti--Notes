@@ -123,13 +123,13 @@ try {
 
     // Mostrar enlaces de paginación
     for ($i = 1; $i <= $totalPaginas; $i++) {
-        echo "<a href='?pagina=$i&alumnosPorPagina=$alumnosPorPagina'>$i</a> ";
+        echo "<a href='?pagina=$i&alumnosPorPagina=$alumnosPorPagina'>Página $i</a> ";
     }
 
     mysqli_close($conexion);
 
 } catch (Exception $e) {
-    echo "Se produjo un error: " . $e->getMessage();
+    echo "Se produjo un error: " . $e;
 }
 ?>
 

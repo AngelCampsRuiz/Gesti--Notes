@@ -29,7 +29,7 @@ try{
         mysqli_stmt_close($stmt);
     }
 } catch(Exception $e) {
-    echo "Error: ". $e->getMessage();
+    echo "Error: ". $e;
     exit();
 }
 

@@ -31,7 +31,7 @@
         mysqli_stmt_execute($stmtAlumno);
         $resultAlumno = mysqli_stmt_get_result($stmtAlumno);
     } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+        echo "Error: " . $e;
         exit();
     }
 
