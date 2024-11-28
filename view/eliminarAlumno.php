@@ -1,4 +1,5 @@
 <?php
+    session_start();
     if($_SERVER['REQUEST_METHOD'] !== 'GET'){
         header('Location: ../view/gestionUsers.php');
         exit();
@@ -45,6 +46,7 @@
 
         mysqli_commit($conexion);
         mysqli_close($conexion);
+        $_SESSION['eliminarAlumno'] = true;
         header("Location: gestionUsers.php");
         exit();
     } catch (Exception $e) {

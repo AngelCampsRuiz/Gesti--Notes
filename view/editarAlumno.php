@@ -37,6 +37,7 @@ try {
         mysqli_stmt_close($stmt);
         mysqli_close($conexion); // Cerrar la conexión desde el archivo incluido
 
+        $_SESSION['editarAlumno'] = true;
         // Redirigir a la página de gestión de usuarios
         header("Location: gestionUsers.php");
         exit; // Asegurarse de que el script se detenga después de la redirección

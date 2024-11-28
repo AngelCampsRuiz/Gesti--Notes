@@ -1,4 +1,17 @@
-document.getElementById("nombre").onmouseleave = function validaNombre() {
+document.getElementById("username").oninput = function() {
+    let username = document.getElementById("username").value;
+    let errorUsername = ""
+    if(username.length == 0 || username == null || /^\s+$/.test(username)) {
+        errorUsername = "El campo nombre no puede estar vacío"
+    } else if(!letrasYnumeros(username)) {
+        errorUsername = "El nombre solo puede contener letras"
+    }
+    function letrasYnumeros(username) {
+        return /^[a-zA-Z0-9]+$/.test(username);
+    }
+    document.getElementById("errorUsername").innerHTML = errorUsername
+}
+document.getElementById("nombre").oninput = function validaNombre() {
     let nombre = this.value.trim()
     let errorNombre = ""
     if(nombre.length == 0 || nombre == null || /^\s+$/.test(nombre)) {
@@ -12,7 +25,7 @@ document.getElementById("nombre").onmouseleave = function validaNombre() {
     document.getElementById("errorNombre").innerHTML = errorNombre
     veriForm()
 }
-document.getElementById("apellido").onmouseleave = function validaApellido() {
+document.getElementById("apellido").oninput = function validaApellido() {
     let apellido = this.value.trim()
     let errorApellido = ""
     if(apellido.length == 0 || apellido == null || /^\s+$/.test(apellido)) {
@@ -26,7 +39,30 @@ document.getElementById("apellido").onmouseleave = function validaApellido() {
     document.getElementById("errorApellido").innerHTML = errorApellido
     veriForm()
 }
-document.getElementById("email").onmouseleave = function validaEmail() {
+document.getElementById("dni").oninput = function validaDNI() {
+    let dni = this.value
+    let errorDNI = ""
+    if(dni.length == 0 || dni == null || /^\s+$/.test(dni)){
+        errorDNI = "El campo no puede estar vacio."
+    } else if(!calculoDNI(dni)){
+        errorDNI = "El DNI no es valido."
+    } else if(!letraDni(dni)){
+        errorDNI = "La letra del DNI no coincide con el numero."
+    }
+    function calculoDNI(dni){
+        let formatoDni = /^\d{8}[A-Za-z]$/
+        return formatoDni.test(dni)
+    }
+    function letraDni(dni){
+        let letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T']
+        let numeroDNI = dni.substring(0,8)
+        let letraDNI = dni.charAt(8).toUpperCase()
+        let letraExtraida = letras[numeroDNI % 23]
+        return letraDNI == letraExtraida
+    }
+    document.getElementById("errorDNI").innerHTML = errorDNI
+}
+document.getElementById("email").oninput = function validaEmail() {
     let email = this.value.trim()
     let errorEmail = ""
     if(email.length == 0 || email == null || /^\s+$/.test(email)) {
@@ -40,7 +76,7 @@ document.getElementById("email").onmouseleave = function validaEmail() {
     document.getElementById("errorEmail").innerHTML = errorEmail
     veriForm()
 }
-document.getElementById("telefono").onmouseleave = function validaTelefono() {
+document.getElementById("telefono").oninput = function validaTelefono() {
     let telefono = this.value.trim()
     let errorTelefono = ""
     if(telefono.length == 0 || telefono == null || /^\s+$/.test(telefono)) {
@@ -75,7 +111,7 @@ document.getElementById("fecha").onmouseleave = function validaFecha() {
     document.getElementById("errorDia").innerHTML = errorFecha
     veriForm()
 }
-document.getElementById("direccion").onmouseleave = function validaDireccion() {
+document.getElementById("direccion").oninput = function validaDireccion() {
     let direccion = this.value.trim()
     let errorDireccion = ""
     if(direccion.length == 0 || direccion == null || /^\s+$/.test(direccion)) {

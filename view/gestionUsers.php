@@ -6,9 +6,24 @@
     }
     // Hace que salte el sweet alert de acceso correcto solo una vez
     if(isset($_SESSION['loginTrue']) && $_SESSION['loginTrue']){
-        unset($_SESSION['loginTrue']);
         $user = $_SESSION['username'];
         echo "<script> let loginSucces = true; let user = '$user';</script>";
+        unset($_SESSION['loginTrue']);
+    }
+    // Hace que salte el sweet alert de subir la nota de un alumno
+    if(isset($_SESSION['notaSubida']) && $_SESSION['notaSubida']){
+        echo "<script> let notaSubida = true;</script>";
+        unset($_SESSION['notaSubida']);
+    }
+    // Hace que salte el sweet alert de hacer un editar alumno
+    if(isset($_SESSION['editarAlumno']) && $_SESSION['editarAlumno']){
+        echo "<script> let editarAlumno = true;</script>";
+        unset($_SESSION['editarAlumno']);
+    }
+    // Hace que salte el sweet alert de eliminar un alumno
+    if(isset($_SESSION['eliminarAlumno']) && $_SESSION['eliminarAlumno']){
+        echo "<script> let eliminarAlumno = true;</script>";
+        unset($_SESSION['eliminarAlumno']);
     }
 
     // Inicializar variables de filtro
@@ -33,6 +48,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion Usuarios</title>
     <link rel="stylesheet" type="text/css" href="./../css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" integrity="sha256-qWVM38RAVYHA4W8TAlDdszO1hRaAq0ME7y2e9aab354=" crossorigin="anonymous">
 </head>
 <body>
     <nav class="navbar">
@@ -137,4 +153,72 @@
         echo "Se produjo un error: " . $e->getMessage();
     }
     ?>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js" integrity="sha256-1m4qVbsdcSU19tulVTbeQReg0BjZiW6yGffnlr/NJu4=" crossorigin="anonymous"></script>
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este alumno?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a href="#" id="confirmDeleteButton" class="btn btn-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function() {
+        $('.delete-link').on('click', function() {
+            var id = $(this).data('id');
+            $('#confirmDeleteButton').attr('href', 'eliminarAlumno.php?id=' + id);
+        });
+    });
+    // Hace saltar el sweet alert de acceso conseguido.
+    if(typeof loginSucces !== 'undefined' && loginSucces){
+        swal.fire({
+            title: 'Sesion iniciada',
+            text: 'Bienvenido ' + user + '!',
+            icon:'success',
+        })
+    }
+    // Hace saltar el sweet alert de nota subida exitosamente
+    if(typeof notaSubida !== 'undefined' && notaSubida){
+        swal.fire({
+            title: 'Nota subida',
+            text: 'Nota subida exitosamente',
+            icon: 'success'
+        })
+    }
+    // Hace saltar el sweet alert de un usuario editado perfectamente
+    if(typeof editarAlumno !== 'undefined' && editarAlumno){
+        swal.fire({
+            title: 'Alumno editado',
+            text: 'Usuario editado exitosamente',
+            icon:'success'
+        })
+    }
+    // Hace saltar el sweet alert de un usuario eliminado perfectamente
+    if(typeof eliminarAlumno !== 'undefined' && eliminarAlumno){
+        swal.fire({
+            title: 'Alumno eliminado',
+            text: 'Alumno eliminado exitosamente',
+            icon:'success'
+        })
+    }
+    
+</script>
 </body>

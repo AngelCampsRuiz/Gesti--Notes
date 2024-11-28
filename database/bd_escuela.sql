@@ -18,6 +18,8 @@ CREATE TABLE tbl_usuarios (
 -- creacion de la tabla alumnos
 CREATE TABLE tbl_alumnos (
     id_alu INT AUTO_INCREMENT PRIMARY KEY not null,
+    username_usu VARCHAR(50) NOT NULL,
+    dni_alu char(9) NOT NULL,
     nombre_alu VARCHAR(30) NOT NULL,
     apellido_alu VARCHAR(50) NOT NULL,
     fecha_nacimiento DATE NOT NULL,

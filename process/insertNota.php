@@ -33,6 +33,7 @@ try {
         mysqli_close($conexion);
 
         echo "Nota insertada correctamente.";
+        $_SESSION['notaSubida'] = true;
         header("Location: ../view/gestionUsers.php");
         exit();
     } else {
