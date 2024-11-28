@@ -24,56 +24,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/vistaNotas.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Notas de Asignaturas</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="vistaNotas.php?asignatura">Media Asignaturas</a>
-                    </li>
-                </ul>
-                <a href="cerrarSesion.php"><button class='btn btn-danger'>Cerrar Sesion</button></a>
-            </div>
-        </div>
-    </nav>
-    <h1>Notas de Asignaturas</h1>
+<nav class="navbar">
+    <a class="navbar-brand" href="#">
+        <img src="../img/LogoEscuela.jpeg" alt="Logo" id="logo">
+    </a>
+    <a href="cerrarSesion.php"><button class='btn btn-danger'>Cerrar Sesion</button></a>
+</nav>
+
+<h1>Notas de Asignaturas</h1>
+<div class="buttons-container">
     <a href="gestionUsers.php"><button class="btn btn-primary">Vista Alumnos</button></a>
-    <?php
-        require_once '../process/filtrosNotas.php';
-            if($resultNotasAlumnos){
-                echo "<table>";
-                    echo "<thead>";
-                        echo "<tr>";
-                            echo "<th>Asignatura</th>";
-                            echo "<th>Media</th>";
-                            echo "<th>Alumno</th>";
-                            echo "<th>Nota</th>";
-                        echo "</tr>";
-                    echo "</thead>";
-                    echo "<tbody>";
-                    while($rowNotasAlumnos = mysqli_fetch_assoc($resultNotasAlumnos)){
-                        echo "<tr>";
-                            echo "<td>".$rowNotasAlumnos['nombre_asig']."</td>";
-                            echo "<td>".(isset($rowNotasAlumnos['promedio']) ? number_format($rowNotasAlumnos['promedio'], 2) : "----------")." </td>";
-                            echo "<td>".$rowNotasAlumnos['nombre_alu']."</td>";
-                            echo "<td>".number_format($rowNotasAlumnos['nota_alu'], 2)."</td>";
-                        echo "</tr>";
-                    }
-                    echo "</tbody>";
-                echo "</table>";
-            } else {
-                echo "<p>No hay notas para mostrar</p>";
-            }
-    ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</div>
+
+<?php
+    require_once '../process/filtrosNotas.php';
+        if($resultNotasAlumnos){
+            echo "<table>";
+                echo "<thead>";
+                    echo "<tr>";
+                        echo "<th>Asignatura</th>";
+                        echo "<th>Media</th>";
+                        echo "<th>Alumno</th>";
+                        echo "<th>Nota</th>";
+                    echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+                while($rowNotasAlumnos = mysqli_fetch_assoc($resultNotasAlumnos)){
+                    echo "<tr>";
+                        echo "<td>".$rowNotasAlumnos['nombre_asig']."</td>";
+                        echo "<td>".(isset($rowNotasAlumnos['promedio']) ? number_format($rowNotasAlumnos['promedio'], 2) : "----------")." </td>";
+                        echo "<td>".$rowNotasAlumnos['nombre_alu']."</td>";
+                        echo "<td>".number_format($rowNotasAlumnos['nota_alu'], 2)."</td>";
+                    echo "</tr>";
+                }
+                echo "</tbody>";
+            echo "</table>";
+        } else {
+            echo "<p>No hay notas para mostrar</p>";
+        }
+?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
