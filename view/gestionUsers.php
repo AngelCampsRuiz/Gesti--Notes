@@ -83,6 +83,11 @@ try {
                             <button class="btn btn-outline-success btn-sm" type="submit">Buscar</button>
                         </form>
                     </li>
+                    <?php
+                        echo isset($_GET['nombre']) || isset($_GET['apellido']) ? "<li class='nav-item'>
+                            <a class='nav-link active' href='gestionUsers.php'>Borrar Filtros</a>
+                        </li>" : "";
+                    ?>
                 </ul>
                 <a href="cerrarSesion.php"><button class='btn btn-danger btn-sm'>Cerrar Sesion</button></a>
             </div>
@@ -105,7 +110,7 @@ try {
         }
         echo "</table>";
     } else {
-        echo "No hay alumnos."; 
+        echo "<p>No hay alumnos.</p>"; 
     }
 
     // Calcular el número total de páginas

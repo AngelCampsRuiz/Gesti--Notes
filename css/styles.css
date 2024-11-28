@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Estilos generales */
 body {
     font-family: Arial, sans-serif;
@@ -74,6 +72,59 @@ a:hover {
 #logo {
     max-width: 150px; /* Ajusta el tamaño del logo */
 }
-h1{
+
+h1 {
     text-align: center;
+}
+
+/* ---- Responsivo ---- */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1, h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    /* Reduce el tamaño de los botones */
+    .btn {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+
+    /* Centrar botones y formularios */
+    form, .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .pagination {
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra pequeño */
+@media (max-width: 480px) {
+    header {
+        padding: 15px 0;
+    }
+
+    table, th, td {
+        font-size: 0.8rem;
+    }
+
+    .card-body p {
+        font-size: 0.9rem;
+    }
 }
