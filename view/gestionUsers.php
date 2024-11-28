@@ -132,7 +132,7 @@ function checkMysqliError($conexion) {
         echo "<div class='pagination'>";
         for ($i = 1; $i <= $totalPaginas; $i++) {
             if ($i == $paginaActual) {
-                echo "<strong>$i</strong> ";
+                echo "<strong>Página: $i</strong> ";
             } else {
                 echo "<a href='?pagina=$i&alumnosPorPagina=$alumnosPorPagina&nombre=$nombreFiltro&apellido=$apellidoFiltro'>$i</a> ";
             }
