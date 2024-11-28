@@ -45,7 +45,6 @@ mysqli_close($conexion);
     <title>Document</title>
 </head>
 <body>
-    <a href="gestionUsers.php"><button class="btn btn-danger">VOLVER</button></a>
 <form method="post">
     <label>Nombre: <input type="text" id="nombre" name="nombre"></label>
     <span id="errorNombre" class="error"></span>
@@ -59,7 +58,10 @@ mysqli_close($conexion);
     <span id="errorDireccion" class="error"></span>
     <label>Fecha de Nacimiento: <input type="date" id="fecha" name="fecha_nacimiento"></label>
     <span id="errorDia" class="error"></span><br>
-    <input type="submit" id="boton" value="Crear Alumno" disabled>
+    <div class="button-group">
+        <input type="submit" id="boton" value="Crear Alumno" disabled>
+        <button type="button" class="btn btn-danger" onclick="window.location.href='gestionUsers.php'">VOLVER</button>
+    </div>
 </form> 
 <script src="../js/verifAlu.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
