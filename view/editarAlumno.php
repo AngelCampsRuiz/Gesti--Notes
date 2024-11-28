@@ -31,7 +31,7 @@ try {
                 throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
             }
         } catch (Exception $e) {
-            echo "Error al actualizar el alumno: " . $e->getMessage();
+            echo "Error al actualizar el alumno: " . $e;
             exit();
         }
         mysqli_stmt_close($stmt);
@@ -55,7 +55,7 @@ try {
                 throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
             }
         } catch (Exception $e) {
-            echo "Error al obtener los datos del alumno: " . $e->getMessage();
+            echo "Error al obtener los datos del alumno: " . $e;
             exit();
         }
 
@@ -71,7 +71,7 @@ try {
     mysqli_close($conexion); // Cerrar la conexión desde el archivo incluido
 
 } catch (Exception $e) {
-    echo "Se produjo un error: " . $e->getMessage();
+    echo "Se produjo un error: " . $e;
 }
 ?>
 <!DOCTYPE html>

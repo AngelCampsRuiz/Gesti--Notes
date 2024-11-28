@@ -114,7 +114,6 @@ h1 {
     background-color: #218838;
 }
 
-/* Estilos para la tabla de alumnos */
 table {
     width: 90%;
     max-width: 1000px;
@@ -146,7 +145,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Paginación */
 .pagination {
     text-align: center;
     margin: 20px 0;
@@ -165,7 +163,6 @@ a:hover {
     color: white;
 }
 
-/* Estilos para el logo */
 #logo {
     max-width: 50px;
     height: auto;

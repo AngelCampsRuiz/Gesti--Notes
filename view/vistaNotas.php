@@ -14,7 +14,7 @@
             mysqli_stmt_execute($stmtNotasAlumnos);
             $resultNotasAlumnos = mysqli_stmt_get_result($stmtNotasAlumnos);
         } catch(Exception $e){
-            echo "Error: " . $e->getMessage();
+            echo "Error: " . $e;
             exit();
         }
     }
