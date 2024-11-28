@@ -43,18 +43,59 @@ form input[type="textarea"] {
     border-radius: 4px;
 }
 
+form .button-group {
+    text-align: center; /* Centrar los botones */
+    display: flex; /* Usar flexbox para alinear horizontalmente */
+    justify-content: center; /* Centrar horizontalmente */
+}
+
+form input[type="submit"],
+form button {
+    width: 45%;
+    margin: 10px 5px; /* Ajustar margen para separación */
+}
+
 form input[type="submit"] {
-    background: #28a745; /* Color verde */
+    background: #28a745; /* Color verde para el botón Actualizar Alumno */
     color: #fff;
     border: none;
     padding: 10px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    text-align: center;
 }
 
 form input[type="submit"]:hover {
     background: #218838; /* Color verde más oscuro al pasar el mouse */
+}
+
+form button {
+    background: #dc3545; /* Color rojo para el botón VOLVER */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+form button:hover {
+    background: #c82333; /* Color rojo más oscuro al pasar el mouse */
+}
+
+/* Estilos responsivos para pantallas de hasta 480px */
+@media (max-width: 480px) {
+    form .button-group {
+        flex-direction: column; /* Cambiar a columna en modo responsive */
+    }
+
+    form input[type="submit"],
+    form button {
+        width: 100%;
+        margin: 5px 0;
+    }
 }
 
 /* Mensajes de error */
