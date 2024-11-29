@@ -10,6 +10,7 @@ document.getElementById("username").onmouseleave = function() {
         return /^[a-zA-Z0-9]+$/.test(username);
     }
     document.getElementById("errorUsername").innerHTML = errorUsername
+    veriForm()
 }
 document.getElementById("nombre").onmouseleave = function validaNombre() {
     let nombre = this.value.trim()
@@ -61,6 +62,7 @@ document.getElementById("dni").onmouseleave = function validaDNI() {
         return letraDNI == letraExtraida
     }
     document.getElementById("errorDNI").innerHTML = errorDNI
+    veriForm()
 }
 document.getElementById("email").onmouseleave = function validaEmail() {
     let email = this.value.trim()

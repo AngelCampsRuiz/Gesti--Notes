@@ -103,3 +103,9 @@ form button:hover {
     color: red;
     font-size: 12px;
 }
+
+input[readonly] {
+    background-color: #f0f0f0; /* Color gris claro */
+    color: #666; /* Color del texto */
+    border: 1px solid #ccc; /* Borde gris */
+}
