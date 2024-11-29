@@ -46,6 +46,10 @@ mysqli_close($conexion);
 </head>
 <body>
 <form method="post">
+    <label>DNI: <input type="text" id="dni" name="dni"></label>
+    <span id="errorDNI" class="error"></span>
+    <label>Username: <input type="text" id="username" name="username"></label>
+    <span id="errorUsername" class="error"></span>
     <label>Nombre: <input type="text" id="nombre" name="nombre"></label>
     <span id="errorNombre" class="error"></span>
     <label>Apellido: <input type="text" id="apellido" name="apellido"></label>

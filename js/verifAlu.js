@@ -1,4 +1,4 @@
-document.getElementById("username").oninput = function() {
+document.getElementById("username").onmouseleave = function() {
     let username = document.getElementById("username").value;
     let errorUsername = ""
     if(username.length == 0 || username == null || /^\s+$/.test(username)) {
@@ -11,7 +11,7 @@ document.getElementById("username").oninput = function() {
     }
     document.getElementById("errorUsername").innerHTML = errorUsername
 }
-document.getElementById("nombre").oninput = function validaNombre() {
+document.getElementById("nombre").onmouseleave = function validaNombre() {
     let nombre = this.value.trim()
     let errorNombre = ""
     if(nombre.length == 0 || nombre == null || /^\s+$/.test(nombre)) {
@@ -25,7 +25,7 @@ document.getElementById("nombre").oninput = function validaNombre() {
     document.getElementById("errorNombre").innerHTML = errorNombre
     veriForm()
 }
-document.getElementById("apellido").oninput = function validaApellido() {
+document.getElementById("apellido").onmouseleave = function validaApellido() {
     let apellido = this.value.trim()
     let errorApellido = ""
     if(apellido.length == 0 || apellido == null || /^\s+$/.test(apellido)) {
@@ -39,7 +39,7 @@ document.getElementById("apellido").oninput = function validaApellido() {
     document.getElementById("errorApellido").innerHTML = errorApellido
     veriForm()
 }
-document.getElementById("dni").oninput = function validaDNI() {
+document.getElementById("dni").onmouseleave = function validaDNI() {
     let dni = this.value
     let errorDNI = ""
     if(dni.length == 0 || dni == null || /^\s+$/.test(dni)){
@@ -62,7 +62,7 @@ document.getElementById("dni").oninput = function validaDNI() {
     }
     document.getElementById("errorDNI").innerHTML = errorDNI
 }
-document.getElementById("email").oninput = function validaEmail() {
+document.getElementById("email").onmouseleave = function validaEmail() {
     let email = this.value.trim()
     let errorEmail = ""
     if(email.length == 0 || email == null || /^\s+$/.test(email)) {
@@ -76,7 +76,7 @@ document.getElementById("email").oninput = function validaEmail() {
     document.getElementById("errorEmail").innerHTML = errorEmail
     veriForm()
 }
-document.getElementById("telefono").oninput = function validaTelefono() {
+document.getElementById("telefono").onmouseleave = function validaTelefono() {
     let telefono = this.value.trim()
     let errorTelefono = ""
     if(telefono.length == 0 || telefono == null || /^\s+$/.test(telefono)) {
@@ -111,7 +111,7 @@ document.getElementById("fecha").onmouseleave = function validaFecha() {
     document.getElementById("errorDia").innerHTML = errorFecha
     veriForm()
 }
-document.getElementById("direccion").oninput = function validaDireccion() {
+document.getElementById("direccion").onmouseleave  = function validaDireccion() {
     let direccion = this.value.trim()
     let errorDireccion = ""
     if(direccion.length == 0 || direccion == null || /^\s+$/.test(direccion)) {
@@ -124,6 +124,8 @@ document.getElementById("direccion").oninput = function validaDireccion() {
 }
 function veriForm() {
     const errores = [
+        document.getElementById("errorDNI").innerHTML,
+        document.getElementById("errorUsername").innerHTML,
         document.getElementById("errorNombre").innerHTML,
         document.getElementById("errorApellido").innerHTML,
         document.getElementById("errorEmail").innerHTML,
@@ -132,6 +134,8 @@ function veriForm() {
         document.getElementById("errorDireccion").innerHTML
     ]
     const campos = [
+        document.getElementById("dni").value.trim(),
+        document.getElementById("username").value.trim(),
         document.getElementById("nombre").value.trim(),
         document.getElementById("apellido").value.trim(),
         document.getElementById("email").value.trim(),
