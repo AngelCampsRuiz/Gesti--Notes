@@ -52,13 +52,13 @@ mysqli_close($conexion);
     <span id="errorUsername" class="error"></span>
     <label>Nombre: <input type="text" id="nombre" name="nombre"></label>
     <span id="errorNombre" class="error"></span>
-    <label>Apellido: <input type="text" id="apellido" name="apellido"></label>
+    <label>Apellido: <input type="text" id="apellido" name="apellido" placeholder="Ex: Perez"></label>
     <span id="errorApellido" class="error"></span>
-    <label>Email: <input type="email" id="email" name="email"></label>
+    <label>Email: <input type="email" id="email" name="email" placeholder="example@gmail.com"></label>
     <span id="errorEmail" class="error"></span>
-    <label>Teléfono: <input type="text" id="telefono" name="telefono"></label>
+    <label>Teléfono: <input type="text" id="telefono" name="telefono" placeholder="Ex: +34 629183402"></label>
     <span id="errorTelefono" class="error"></span>
-    <label>Dirección: <input type="text" id="direccion" name="direccion"></label>
+    <label>Dirección: <input type="text" id="direccion" name="direccion" placeholder="Ex: Calle 123, Madrid"></label>
     <span id="errorDireccion" class="error"></span>
     <label>Fecha de Nacimiento: <input type="date" id="fecha" name="fecha_nacimiento"></label>
     <span id="errorDia" class="error"></span><br>
