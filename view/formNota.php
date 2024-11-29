@@ -49,7 +49,7 @@
         </label>
         <p id="errorAsig"></p>
         <label for="nota">Nota:
-            <input type="number" name="nota" id="nota" step="0.1">
+            <input type="number" name="nota" id="nota" step="0.1" placeholder="Example: 8 o 8.5">
         </label>
         <p id="errorNota"></p>
         <div class="button-group">
