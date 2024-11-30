@@ -18,14 +18,14 @@ CREATE TABLE tbl_usuarios (
 -- creacion de la tabla alumnos
 CREATE TABLE tbl_alumnos (
     id_alu INT AUTO_INCREMENT PRIMARY KEY not null,
-    username_usu VARCHAR(50) NOT NULL,
+    username_alu VARCHAR(50) NOT NULL,
     dni_alu char(9) NOT NULL,
     nombre_alu VARCHAR(30) NOT NULL,
     apellido_alu VARCHAR(50) NOT NULL,
     fecha_nacimiento DATE NOT NULL,
     email_alu VARCHAR(100) NOT NULL,
-    telefono_alu VARCHAR(15),
-    direccion_alu VARCHAR(255)
+    telefono_alu VARCHAR(15) NOT NULL,
+    direccion_alu VARCHAR(255) NOT NULL
 );
 
 -- creacion de la tabla notas
@@ -64,7 +64,7 @@ INSERT INTO tbl_roles (nombre_rol) VALUES ('profesor');
 INSERT INTO tbl_usuarios (username_usu, password_usu, id_rol) VALUES ('angel','$2y$10$9YAaDvpj8IDI7WRNVxVq6uYzMnCaUWDGMlU6LS.jv6dgpWcmqcswS',1);
 
 -- Insertar en la tabla alumnos
-INSERT INTO tbl_alumnos (dni_alu, username_usu, nombre_alu, apellido_alu, fecha_nacimiento, email_alu, telefono_alu, direccion_alu) 
+INSERT INTO tbl_alumnos (dni_alu, username_alu, nombre_alu, apellido_alu, fecha_nacimiento, email_alu, telefono_alu, direccion_alu) 
 VALUES 
 ('12345678A', 'juanp', 'Juan', 'Pérez', '2005-04-23', 'juan.perez@example.com', '555-1234', 'Calle Falsa 123'),
 ('87654321B', 'mariag', 'María', 'González', '2006-08-15', 'maria.gonzalez@example.com', '555-5678', 'Avenida Siempre Viva 742'),

@@ -56,12 +56,17 @@
                     echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
-                while($rowNotasAlumnos = mysqli_fetch_assoc($resultNotasAlumnos)){
+                while ($row = mysqli_fetch_assoc($resultNotasAlumnos)) {
+                    $nombre_asig = $row['nombre_asig'] ?? 'Sin asignatura'; // Asignar texto predeterminado si es null
+                    $promedio = isset($row['promedio']) && $row['promedio'] != 0 ? number_format((float)$row['promedio'], 2) : '----------';
+                    $nombre_alu = $row['nombre_alu'] ?? 'Sin alumno'; // Asignar tex
+                    $nota_alta = isset($row['nota_alu']) ? number_format((float)$row['nota_alu'], 2) : '----------';
+                
                     echo "<tr>";
-                        echo "<td>".$rowNotasAlumnos['nombre_asig']."</td>";
-                        echo "<td>".(isset($rowNotasAlumnos['promedio']) ? number_format($rowNotasAlumnos['promedio'], 2) : "----------")." </td>";
-                        echo "<td>".$rowNotasAlumnos['nombre_alu']."</td>";
-                        echo "<td>".number_format($rowNotasAlumnos['nota_alu'], 2)."</td>";
+                        echo "<td>" . htmlspecialchars($nombre_asig) . "</td>";
+                        echo "<td>" . htmlspecialchars($promedio) . "</td>";
+                        echo "<td>" . htmlspecialchars($nombre_alu) . "</td>";
+                        echo "<td>" . htmlspecialchars($nota_alta) . "</td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";

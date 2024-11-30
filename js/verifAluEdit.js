@@ -1,17 +1,3 @@
-document.getElementById("username").oninput = function validaUsername() {
-    let username = document.getElementById("username").value;
-    let errorUsername = ""
-    if(username.length == 0 || username == null || /^\s+$/.test(username)) {
-        errorUsername = "El campo nombre no puede estar vacío"
-    } else if(!letrasYnumeros(username)) {
-        errorUsername = "El nombre solo puede contener letras"
-    }
-    function letrasYnumeros(username) {
-        return /^[a-zA-Z0-9]+$/.test(username);
-    }
-    document.getElementById("errorUsername").innerHTML = errorUsername
-    veriForm()
-}
 document.getElementById("nombre").oninput = function validaNombre() {
     let nombre = this.value.trim()
     let errorNombre = ""
@@ -38,30 +24,6 @@ document.getElementById("apellido").oninput = function validaApellido() {
         return /^[a-zA-Z]+$/.test(apellido);
     }
     document.getElementById("errorApellido").innerHTML = errorApellido
-    veriForm()
-}
-document.getElementById("dni").oninput = function validaDNI() {
-    let dni = this.value
-    let errorDNI = ""
-    if(dni.length == 0 || dni == null || /^\s+$/.test(dni)){
-        errorDNI = "El campo no puede estar vacio."
-    } else if(!calculoDNI(dni)){
-        errorDNI = "El DNI no es valido."
-    } else if(!letraDni(dni)){
-        errorDNI = "La letra del DNI no coincide con el numero."
-    }
-    function calculoDNI(dni){
-        let formatoDni = /^\d{8}[A-Za-z]$/
-        return formatoDni.test(dni)
-    }
-    function letraDni(dni){
-        let letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T']
-        let numeroDNI = dni.substring(0,8)
-        let letraDNI = dni.charAt(8).toUpperCase()
-        let letraExtraida = letras[numeroDNI % 23]
-        return letraDNI == letraExtraida
-    }
-    document.getElementById("errorDNI").innerHTML = errorDNI
     veriForm()
 }
 document.getElementById("email").oninput = function validaEmail() {
@@ -126,26 +88,23 @@ document.getElementById("direccion").oninput  = function validaDireccion() {
 }
 function veriForm() {
     const errores = [
-        document.getElementById("errorDNI").innerHTML,
-        document.getElementById("errorUsername").innerHTML,
         document.getElementById("errorNombre").innerHTML,
         document.getElementById("errorApellido").innerHTML,
         document.getElementById("errorEmail").innerHTML,
         document.getElementById("errorTelefono").innerHTML,
         document.getElementById("errorDia").innerHTML,
         document.getElementById("errorDireccion").innerHTML
-    ]
+    ];
     const campos = [
-        document.getElementById("dni").value.trim(),
-        document.getElementById("username").value.trim(),
         document.getElementById("nombre").value.trim(),
         document.getElementById("apellido").value.trim(),
         document.getElementById("email").value.trim(),
         document.getElementById("telefono").value.trim(),
         document.getElementById("fecha").value.trim(),
         document.getElementById("direccion").value.trim()
-    ]
-    const camposVacios = campos.some(campo => campo == "")
-    const hayErrores = errores.some(error => error !== "")
-    document.getElementById('boton').disabled = hayErrores || camposVacios
+    ];
+    const camposVacios = campos.some(campo => campo === "");
+    const hayErrores = errores.some(error => error !== "");
+    console.log({ errores, campos, camposVacios, hayErrores });
+    document.getElementById('boton').disabled = hayErrores || camposVacios;
 }

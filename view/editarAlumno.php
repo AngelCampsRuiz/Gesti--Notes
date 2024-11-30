@@ -11,8 +11,6 @@ try {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Procesar la actualización del alumno
         $id = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['id'])));
-        $dni = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['dni'])));
-        $username = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['username'])));
         $nombre = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['nombre'])));
         $apellido = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['apellido'])));
         $email = mysqli_real_escape_string($conexion,htmlspecialchars(trim($_POST['email'])));
@@ -22,13 +20,13 @@ try {
         // Otros campos...
 
         try{
-            $sql = "UPDATE tbl_alumnos SET dni_alu=?, username_usu=?, nombre_alu=?, apellido_alu=?, email_alu=?, telefono_alu=?, fecha_nacimiento=?, direccion_alu=? WHERE id_alu=?";
+            $sql = "UPDATE tbl_alumnos SET nombre_alu=?, apellido_alu=?, email_alu=?, telefono_alu=?, fecha_nacimiento=?, direccion_alu=? WHERE id_alu=?";
             $stmt = mysqli_prepare($conexion, $sql); // Usar la conexión desde el archivo incluido
             if (!$stmt) {
                 throw new Exception("Error al preparar la consulta: " . mysqli_error($conexion));
             }
 
-            mysqli_stmt_bind_param($stmt, "ssssssssi", $dni, $username, $nombre, $apellido, $email, $telefono, $fecha, $direccion, $id);
+            mysqli_stmt_bind_param($stmt, "ssssssi", $nombre, $apellido, $email, $telefono, $fecha, $direccion, $id);
             if (!mysqli_stmt_execute($stmt)) {
                 throw new Exception("Error al ejecutar la consulta: " . mysqli_stmt_error($stmt));
             }
@@ -91,7 +89,7 @@ try {
         <form method="post">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($alumno['id_alu'] ?? ''); ?>">
             <label>DNI: <input type="text" name="dni" value="<?php echo htmlspecialchars($alumno['dni_alu'] ?? ''); ?>" readonly></label>
-            <label>Username: <input type="text" name="username" value="<?php echo htmlspecialchars($alumno['username_usu'] ?? ''); ?>" readonly></label>
+            <label>Username: <input type="text" name="username" value="<?php echo htmlspecialchars($alumno['username_alu'] ?? ''); ?>" readonly></label>
             <label>Nombre: <input type="text" name="nombre" id="nombre" value="<?php echo htmlspecialchars($alumno['nombre_alu'] ?? ''); ?>"></label>
             <p id="errorNombre"></p>
             <label>Apellido: <input type="text" name="apellido" id="apellido" value="<?php echo htmlspecialchars($alumno['apellido_alu'] ?? ''); ?>"></label>
@@ -109,7 +107,7 @@ try {
                 <button type="button" class="btn btn-danger" onclick="window.location.href='gestionUsers.php'">VOLVER</button>
             </div>
         </form> 
-        <script type="text/javascript" src="../js/verifAlu.js"></script>
+        <script type="text/javascript" src="../js/verifAluEdit.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 </html>
