@@ -147,22 +147,32 @@ a:hover {
 
 .pagination {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centra horizontalmente los elementos */
+    align-items: center;      /* Centra verticalmente los elementos */
     margin: 20px 0;
+    padding: 10px 0;          /* Opcional, para añadir más espacio entre los botones y la tabla */
 }
 
 .pagination a {
-    margin: 0 5px;
-    padding: 5px 10px;
+    margin: 0 5px;            /* Espacio entre los enlaces */
+    padding: 5px 10px;        /* Espaciado dentro de los botones */
     border: 1px solid #007BFF;
     color: #007BFF;
     border-radius: 4px;
+    text-align: center;       /* Centra el texto en el botón */
+    text-decoration: none;    /* Elimina el subrayado */
 }
 
 .pagination a:hover {
     background-color: #007BFF;
     color: white;
+}
+
+.pagination strong {
+    margin: 0 5px;            /* Espacio para el número de página actual */
+    padding: 5px 10px;
+    color: #007BFF;
+    font-weight: bold;        /* Asegúrate de resaltar la página actual */
 }
 
 #logo {
