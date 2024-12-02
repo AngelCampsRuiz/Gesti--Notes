@@ -51,5 +51,6 @@
         header("Location: gestionUsers.php");
         exit();
     } catch (Exception $e) {
+        mysqli_rollback($conexion);
         echo "Se produjo un error: " . $e;
     }
