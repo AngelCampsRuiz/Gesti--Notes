@@ -10,6 +10,7 @@
 
         // Desactivar el autocommit
         mysqli_autocommit($conexion, false);
+        mysqli_begin_transaction($conexion);
 
         // Verificar que los parámetros existen
         if (!isset($_GET['id'])) {
